@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+
+<head>
+    <script src="../js/color-modes.js"></script>
+    <link rel="stylesheet" href="../bootstrap-icons-1.10.5/font/bootstrap-icons.min.css" />
+    <link rel="shortcut icon" href="../img/ali.png" type="image/x-icon" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
+    <meta name="generator" content="Hugo 0.112.5" />
+    <title>Add House Information</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/sidebars.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/myStyle.css" />
+    <link rel="stylesheet" href="../css/dark-light.css" />
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    #houseContainer {
+        max-height: 88vh;
+        overflow-y: hidden;
+        overflow-y: scroll;
+        /* background-color: rgb(0, 0, 0); */
+        scrollbar-width: none;
+    }
+</style>
+
+<body>
+    <%- include('../Component/dark-light.ejs') %>
+
+        <main class="d-flex flex-nowrap">
+            <%- include('../Component/sidebar.ejs', { currentPage: 'addhouse' }) %>
+
+                <section class="w-100">
+                    <%- include('../Component/navbar.ejs') %>
+
+                        <div class="container mt-5 " id="houseContainer">
+                            <h1 class="text-center mb-4">Add Realty Information</h1>
+
+                            <form action="/addrealty.html" method="POST">
+                                <h3 class="mt-4">Partner Information</h3>
+                                <div class="row">
+                                    <div class="mb-3 col-md-4">
+                                        <label for="partnerName" class="form-label">Nom:</label>
+                                        <input type="text" class="form-control" id="partnerName" name="partnerName"
+                                            placeholder="Enter partner's name" />
+                                    </div>
+                                    <div class="mb-3 col-md-4">
+                                        <label for="partnerLastName" class="form-label">Prénom:</label>
+                                        <input type="text" class="form-control" id="partnerLastName"
+                                            name="partnerLastName" placeholder="Enter partner's name" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="phoneNumber" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
+                                            placeholder="Enter phone number" pattern="[0-9]{10}" />
+                                    </div>
+                                </div>
+
+                                <h3 class="mt-4">Apartment Information</h3>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <select class="form-select" id="city" name="city">
+                                            <option selected disabled>Ville</option>
+                                            <option value="nador">Nador</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-select" id="neighborhood" name="neighborhood">
+                                            <option selected disabled>Quartier</option>
+                                            <option value="hayalmatar">Hay-Al-Matar</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3 col-md-4">
+                                        <select class="form-select" id="type" name="type">
+                                            <option selected disabled>villa/appartement</option>
+                                            <option value="villa">Villa</option>
+                                            <option value="appartement">Appartement</option>
+                                            <option value="maison">maison</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="floor" class="form-label">Nombre de piece:</label>
+                                        <input type="number" class="form-control" id="piececount" name="piececount"
+                                            placeholder="Enter nombre étages" />
+                                    </div>
+                                    <div class="mb-3 col-md-4">
+                                        <label for="apartmentName" class="form-label">Nom d'appartement:</label>
+                                        <input type="text" class="form-control" id="apartmentName" name="apartmentName"
+                                            placeholder="Enter apartment name" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="furniture" class="form-label">Meubles:</label>
+                                                <select class="form-select" id="furniture" name="furniture">
+                                                    <option selected disabled>Meubles</option>
+                                                    <option value="true">équipe de meubles</option>
+                                                    <option value="false">sans meubles</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="elevator" class="form-label">Acensseur:</label>
+                                                <select class="form-select" id="elevator" name="elevator">
+                                                    <option selected disabled>Acensseur</option>
+                                                    <option value="true">Oui</option>
+                                                    <option value="false">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <label for="floor" class="form-label">étage:</label>
+                                        <input type="number" class="form-control" id="floor" name="floor"
+                                            placeholder="Enter étage" />
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="area" class="form-label">Surface total(sqm):</label>
+                                        <input type="number" class="form-control" id="area" name="area"
+                                            placeholder="Enter surface maision" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="price" class="form-label">Prix:</label>
+                                        <input type="number" class="form-control" id="price" name="price"
+                                            placeholder="Enter prix" />
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+
+                                    <div class="col-md-4">
+                                        <label for="CondominiumFees" class="form-label">Frais de copropriété:</label>
+                                        <input type="text" class="form-control" id="CondominiumFees"
+                                            name="CondominiumFees" placeholder="Enter Frais de copropriété" />
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="PaymentTerms" class="form-label">Modalités de Paiement:</label>
+                                        <input type="text" class="form-control" id="PaymentTerms" name="PaymentTerms"
+                                            placeholder="Enter Modalités de Paiement " />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="DateCreate" class="form-label">Année de Construction :</label>
+                                        <input type="text" class="form-control" id="DateCreate" name="DateCreate"
+                                            placeholder="Enter Année de Construction " />
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col-md-6">
+                                        <label for="status" class="form-label">État de l'Appartement : </label>
+                                        <input type="text" class="form-control" id="status" name="status"
+                                            placeholder="Neuf, Rénové, À Rénovation... " />
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <div class="">
+                                            <label for="position" class="form-label">position : </label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="position" name="position"
+                                                    placeholder="Enter house position" />
+                                                <button type="button" class="btn btn-outline-secondary"
+                                                    onclick="window.open('https://www.google.com/maps', '_blank')">
+                                                    Go to Map
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                                <h3 class="mt-4">Chambres</h3>
+                                <div class="mb-3">
+                                    <div id="roomContainer">
+
+                                        <div class="room-item border p-3 mb-3 rounded row align-items-center">
+                                            <div class="mb-3 col-md-6 ">
+                                                <label for="RoomCount" class="form-label">Nombre des chambres</label>
+                                                <input type="number" class="form-control" id="RoomCount"
+                                                    name="RoomCount" placeholder="Enter la nombre des chambres " />
+                                            </div>
+
+                                            <div class="mb-3 col-md-6 ">
+                                                <label for="RoomDescription" class="form-label">Description</label>
+                                                <textarea class="form-control" id="RoomDescription"
+                                                    name="RoomDescription" placeholder="description"
+                                                    rows="2"></textarea>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                <% categories.forEach(category => { %>
+                                    <h4>
+                                        <%= category.section %>
+                                    </h4>
+                                    <div class="row">
+                                        <% category.items.forEach(item => { %>
+                                            <div class="col-md-6 mb-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        name="available_<%= item %>" id="<%= item %>"
+                                                        value="<%= item %>"
+                                                        onclick="toggleDescriptionField('<%= item %>')" />
+                                                    <label class="form-check-label" for="<%= item %>">
+                                                        <%= item %>
+                                                    </label>
+                                                </div>
+                                                <!-- Container for the dynamic textarea -->
+                                                <div class="form-check">
+                                                    <textarea name="description<%= item %>" class="form-control mt-2"
+                                                        id="description<%= item %>"
+                                                        placeholder="Add description for <%= item %>"
+                                                        rows="2" style="display: none;"></textarea> <!-- Initially hidden -->
+                                                </div>
+                                            </div>
+                                        <% }) %>
+                                    </div>
+                                <% }) %>
+                                
+
+
+
+
+
+
+
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <button type="submit" class="btn btn-primary my-4 w-100">Add
+                                                    House</button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button type="reset" class="btn btn-danger my-4 w-100">Reset</button>
+                                            </div>
+                                        </div>
+                            </form>
+                        </div>
+                </section>
+        </main>
+
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script src="../js/sidebars.js"></script>
+        <script src="../js/main.js"></script>
+        <script>
+            function toggleDescriptionField(item) {
+                const checkbox = document.getElementById(item);
+                const textarea = document.getElementById(`description${item}`);
+
+                // Show the textarea if the checkbox is checked, otherwise hide it
+                if (checkbox.checked) {
+                    textarea.style.display = 'block';  // Show the textarea
+                    textarea.focus();  // Optional: Focus on the textarea when shown
+                } else {
+                    textarea.style.display = 'none';    // Hide the textarea
+                }
+            }
+
+        </script>
+
+</body>
+
+</html>

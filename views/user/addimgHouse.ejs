@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+
+<head>
+  <script src="../js/color-modes.js"></script>
+  <link rel="stylesheet" href="../bootstrap-icons-1.10.5/font/bootstrap-icons.min.css" />
+  <link rel="shortcut icon" href="../img/ali.png" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
+  <meta name="generator" content="Hugo 0.112.5" />
+  <title>Upload Images</title>
+
+  <link href="../css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../css/sidebars.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/myStyle.css" />
+  <link rel="stylesheet" href="../css/dark-light.css">
+</head>
+
+<body>
+
+  <%- include('../Component/dark-light.ejs') %>
+
+  <main class="d-flex flex-nowrap">
+    <%- include('../Component/sidebar.ejs', { currentPage: 'addhouseimg' }) %>
+    <section class="w-100">
+
+      <%- include('../Component/navbar.ejs') %>
+      <p><a href="/">Home</a> ><a href="/dataHouse">Houses</a> ><a href="/house/<%= house._id %>-eimgs">img-House</a></p>
+      <div class="container">
+        <h1>Upload Images</h1>
+        <form action="/user/upload-images" method="POST" enctype="multipart/form-data">
+          <!-- Hidden field for house ID -->
+          <% if (house) { %>
+          <input type="hidden" name="houseId" value="<%= house._id %>">
+          <% } %>
+
+          <!-- Fixed input fields for image uploads -->
+          <input class="form-control mb-2" type="file" name="images" accept="image/*" multiple>
+
+          <button class="btn btn-primary w-100" type="submit">Save All Images</button>
+        </form>
+
+        <!-- Display existing images -->
+        <% if (house && house.images && house.images.length > 0) { %>
+          <h4>Existing Images:</h4>
+          <div class="row">
+            <% house.images.forEach((image, index) => { %>
+            <div  class="col-md-3 mb-3 p-3">
+              <div class="bordered border ">
+              <img style="min-height: 250px; max-height: 250px; width: 100%;" src="../../<%= image %>" alt="Image <%= index + 1 %>" class="img-fluid mb-2" />
+              <!-- Form to remove image -->
+              <form action="/user/remove-image" method="POST" style="display:inline;">
+                <input type="hidden" name="houseId" value="<%= house._id %>">
+                <input type="hidden" name="imagePath" value="<%= image %>">
+                <button type="submit" class="btn btn-danger btn-sm mb-1">X</button>
+              </form>
+
+              <!-- Form to update image -->
+              <form action="/user/update-image" class="d-flex" method="POST" enctype="multipart/form-data" style="display:inline;">
+                <input  type="hidden" name="houseId" value="<%= house._id %>">
+                <input type="hidden" name="oldImagePath" value="<%= image %>">
+                <input style="max-width: 100px;" class="form-control-file" type="file" name="newImage" accept="image/*" required>
+                <button type="submit" class="btn btn-warning btn-sm">Update</button>
+              </form>
+            </div>
+            </div>
+            <% }) %>
+            
+          </div>
+          <br>
+        <% } %>
+      </div>
+
+    </section>
+  </main>
+  <script src="../js/bootstrap.bundle.min.js"></script>
+  <script src="../js/sidebars.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+
+<head>
+  <script src="./js/color-modes.js"></script>
+  <link rel="stylesheet" href="./bootstrap-icons-1.10.5/font/bootstrap-icons.min.css" />
+  <link rel="shortcut icon" href="./img/me.jpg" type="image/x-icon">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
+  <meta name="generator" content="Hugo 0.112.5" />
+  <title>Home page</title>
+
+  <link href="./css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="./css/sidebars.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/myStyle.css" />
+  <link rel="stylesheet" href="./css/dark-light.css">
+
+</head>
+<style>
+  .ll {
+    font-size: 30px;
+    text-decoration: none;
+    font-weight: 500;
+  }
+</style>
+
+
+
+<body>
+  <%- include('./Component/dark-light.ejs') %>
+
+    <main class="d-flex flex-nowrap">
+      <%- include('./Component/sidebar.ejs', {currentPage : 'index' }) %>
+
+        <section class="w-100">
+          <%- include('./Component/navbar.ejs') %>
+
+
+            <div class="container  mt-5 w-100 ">
+              <div class="row">
+                <div class="col-md-3">
+                  <a class="ll col-md-3" href="dataUser">
+                    <div style="height: 150px;background-color: rgb(95, 141, 35);"
+                      class="card d-flex align-items-center justify-content-center">
+                      USER: <%= countA %>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-md-3">
+                  <a class="ll col-md-3" href="dataHouse">
+                    <div style="height: 150px;background-color: rgb(62, 99, 99);"
+                      class="card  d-flex align-items-center justify-content-center">
+                      HOUSES: <%= countB %>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-md-3">
+                  <a class="ll col-md-3" href="dataRealty">
+                    <div style="height: 150px;background-color: rgb(189, 74, 39);"
+                      class="card d-flex align-items-center justify-content-center">
+                      Houses Realty: <%= countC %>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+
+            </div>
+
+        </section>
+    </main>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+
+    <script src="./js/sidebars.js"></script>
+
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
