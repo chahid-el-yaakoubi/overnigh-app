@@ -78,7 +78,8 @@ const house_index_get = (req, res) => {
 };
 const user_house_get = (req, res) => {
   Houses.find()
-    .then(datahouse => res.render('user/dataHouse', { datahouse, moment }))
+    .then(datahouse => 
+      res.render('user/dataHouse', { datahouse, moment }))
     .catch(err => console.error(err));
 
 };

@@ -209,13 +209,13 @@
 
                                     </div>
                                 </div>
-                                
-                                <% categories.forEach(category => { %>
+
+                                <% categories.forEach(category=> { %>
                                     <h4>
                                         <%= category.section %>
                                     </h4>
                                     <div class="row">
-                                        <% category.items.forEach(item => { %>
+                                        <% category.items.forEach(item=> { %>
                                             <div class="col-md-6 mb-3">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox"
@@ -230,16 +230,27 @@
                                                 <div class="form-check">
                                                     <textarea name="description<%= item %>" class="form-control mt-2"
                                                         id="description<%= item %>"
-                                                        placeholder="Add description for <%= item %>"
-                                                        rows="2" style="display: none;"></textarea> <!-- Initially hidden -->
+                                                        placeholder="Add description for <%= item %>" rows="2"
+                                                        style="display: none;"></textarea> <!-- Initially hidden -->
                                                 </div>
                                             </div>
-                                        <% }) %>
+                                            <% }) %>
                                     </div>
-                                <% }) %>
-                                
+                                    <% }) %>
 
 
+                                        <!-- add description house -->
+                                        <div id="descriptionsContainer">
+                                            <div class="form-group">
+                                                <label for="description">Description:</label>
+                                                <textarea class="form-control" name="descriptions[]" rows="2"
+                                                    required></textarea>
+
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="btn btn-secondary mt-2" mt-2
+                                            id="addDescriptionBtn">Add item</button>
 
 
 

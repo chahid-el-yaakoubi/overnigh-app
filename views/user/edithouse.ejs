@@ -84,25 +84,30 @@
                     <select class="form-select" id="type" name="type">
                       <option selected disabled>villa/appartement</option>
                       <option value="villa" <%=house && house.type==='villa' ? 'selected' : '' %>>Villa</option>
-                      <option value="appartement" <%=house && house.type==='appartement' ? 'selected' : '' %>>Appartement</option>
+                      <option value="appartement" <%=house && house.type==='appartement' ? 'selected' : '' %>
+                        >Appartement</option>
                     </select>
                   </div>
                 </div>
 
-                
+
                 <div class="row">
                   <div class="col-md-4">
                     <select class="form-select" id="nightmonth" name="nightmonth">
                       <option selected disabled>nuit/mois</option>
-                      <option value="night" <%=house && house.nightmonth==='night' ? 'selected' : '' %>>Par Nuit</option>
-                      <option value="month" <%=house && house.nightmonth==='month' ? 'selected' : '' %>>Par Mois</option>
+                      <option value="night" <%=house && house.nightmonth==='night' ? 'selected' : '' %>>Par Nuit
+                      </option>
+                      <option value="month" <%=house && house.nightmonth==='month' ? 'selected' : '' %>>Par Mois
+                      </option>
                     </select>
                   </div>
                   <div class="col-md-4">
                     <select class="form-select" id="furniture" name="furniture">
                       <option selected disabled>Meubles</option>
-                      <option value="true" <%=house && house.furniture==='true' ? 'selected' : '' %>>équipe de meubles</option>
-                      <option value="false" <%=house && house.furniture==='false' ? 'selected' : '' %>>sans meubles</option>
+                      <option value="true" <%=house && house.furniture==='true' ? 'selected' : '' %>>équipe de meubles
+                      </option>
+                      <option value="false" <%=house && house.furniture==='false' ? 'selected' : '' %>>sans meubles
+                      </option>
                     </select>
                   </div>
 
@@ -114,7 +119,7 @@
                 </div>
 
                 <div class="row">
-                  
+
                   <div class="col-md-4">
                     <label for="floor" class="form-label">étage</label>
                     <input type="number" class="form-control" id="floor" name="floor" placeholder="Enter étage"
@@ -132,14 +137,14 @@
                   </div>
                 </div>
                 <div class="row">
-                <div class="col-md-12 mt-4 pt-2">
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="position" name="position"
-                      placeholder="Enter house position" value="<%= house ? house.apartmentInfo.position : '' %>">
-                    <button type="button" class="btn btn-outline-secondary"
-                      onclick="window.open('https://www.google.com/maps', '_blank')">Go to Map</button>
+                  <div class="col-md-12 mt-4 pt-2">
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="position" name="position"
+                        placeholder="Enter house position" value="<%= house ? house.apartmentInfo.position : '' %>">
+                      <button type="button" class="btn btn-outline-secondary"
+                        onclick="window.open('https://www.google.com/maps', '_blank')">Go to Map</button>
+                    </div>
                   </div>
-                </div>
                 </div>
 
 
@@ -247,16 +252,26 @@
                         </div>
                         <% }) %>
 
-
-
-                          <div class="row">
-                            <div class="col-md-6">
-                              <button type="submit" class="btn btn-primary my-4 w-100">Update House</button>
+                          <div id="descriptionsContainer"></div>
+                          <% house.descriptions.forEach(function(description, index) { %>
+                            <div class="form-group description-group">
+                              <label for="description">Description <%= index + 1 %>:</label>
+                              <textarea class="form-control" name="descriptions[]" rows="3"><%= description %></textarea>
+                              <button type="button" class="btn btn-danger mt-2 removeDescriptionBtn">Remove</button>
                             </div>
-                            <div class="col-md-6">
-                              <button type="reset" class="btn btn-danger my-4 w-100">Reset</button>
-                            </div>
+                            <% }) %>
                           </div>
+
+                        <!-- Add Another Description Button -->
+                        <button type="button" class="btn btn-secondary" id="addDescriptionBtn">Add Another Description</button>
+                <div class="row">
+                  <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary my-4 w-100">Update House</button>
+                  </div>
+                  <div class="col-md-6">
+                    <button type="reset" class="btn btn-danger my-4 w-100">Reset</button>
+                  </div>
+                </div>
               </form>
             </div>
         </section>

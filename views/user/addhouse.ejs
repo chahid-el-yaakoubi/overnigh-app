@@ -118,119 +118,130 @@
                   </div>
 
                   <div class="col-md-4">
-                  <label for="area" class="form-label">Surface total(sqm)</label>
-                  <input type="number" class="form-control" id="area" name="area" placeholder="Enter surface maision" />
-                </div>
-                <div class="col-md-4">
-                  <label for="price" class="form-label">Prix</label>
-                  <input type="number" class="form-control" id="price" name="price" placeholder="Enter prix" />
-                </div>
-            </div>
-
-            <div class="row">
-
-              <div class="col-md-12 mt-4 pt-2">
-                <div class="mb-3 ">
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="position" name="position"
-                      placeholder="Enter house position" />
-                    <button type="button" class="btn btn-outline-secondary"
-                      onclick="window.open('https://www.google.com/maps', '_blank')">
-                      Go to Map
-                    </button>
+                    <label for="area" class="form-label">Surface total(sqm)</label>
+                    <input type="number" class="form-control" id="area" name="area"
+                      placeholder="Enter surface maision" />
+                  </div>
+                  <div class="col-md-4">
+                    <label for="price" class="form-label">Prix</label>
+                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter prix" />
                   </div>
                 </div>
 
-              </div>
+                <div class="row">
+
+                  <div class="col-md-12 mt-4 pt-2">
+                    <div class="mb-3 ">
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="position" name="position"
+                          placeholder="Enter house position" />
+                        <button type="button" class="btn btn-outline-secondary"
+                          onclick="window.open('https://www.google.com/maps', '_blank')">
+                          Go to Map
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
 
 
-            </div>
+                </div>
 
-            <h3 class="mt-4">Chambres</h3>
-            <div class="mb-3">
-              <div id="roomContainer">
-                <!-- Initial Room Form -->
-                <!-- <div class="mb-3">
+                <h3 class="mt-4">Chambres</h3>
+                <div class="mb-3">
+                  <div id="roomContainer">
+                    <!-- Initial Room Form -->
+                    <!-- <div class="mb-3">
                   <label for="persons" class="form-label">Combien des persones?</label>
                   <input type="number" class="form-control" name="persons" placeholder="Enter nombre max des persones" min="1" />
                 </div> -->
-                <div class="room-item border p-3 mb-3 rounded">
-                  <h4>Chambre #1</h4>
-                  <div class="mb-3">
-                    <label for="type" class="form-label">Type chambre</label>
-                    <select class="form-select" name="typee[]" required>
-                      <option value="Single">Single</option>
-                      <option value="Double">Double</option>
-                      <option value="Suite">Suite</option>
-                    </select>
+                    <div class="room-item border p-3 mb-3 rounded">
+                      <h4>Chambre #1</h4>
+                      <div class="mb-3">
+                        <label for="type" class="form-label">Type chambre</label>
+                        <select class="form-select" name="typee[]" required>
+                          <option value="Single">Single</option>
+                          <option value="Double">Double</option>
+                          <option value="Suite">Suite</option>
+                        </select>
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" name="description" rows="2"></textarea>
+                      </div>
+
+                    </div>
+
                   </div>
 
-                  <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" name="description" rows="2"></textarea>
-                  </div>
 
+                  <button type="button" class="btn btn-secondary mb-3" id="addRoomBtn">Add Another Room</button>
                 </div>
+                <h3 class="mt-4">House Features</h3>
+                <% categories.forEach(category=> { %>
+                  <h4>
+                    <%= category.section %>
+                  </h4>
+                  <div class="row">
+                    <% category.items.forEach(item=> { %>
+                      <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="available_<%= item %>" id="<%= item %>"
+                            value="true" />
+                          <label class="form-check-label" for="<%= item %>">
+                            <%= item %>
+                          </label>
+                        </div>
+                      </div>
+                      <% }) %>
+                  </div>
+                  <% }) %>
 
-              </div>
+                    <h3 class="mt-4">Environment</h3>
+                    <% environment.forEach((section, index)=> { %>
+                      <div class="mb-4">
+                        <h5>
+                          <%= section %>
+                        </h5>
+                        <ul class="list-group" id="list-<%= index %>">
+                          <input type="hidden" class="nameInput" value="<%= section %>"> <!-- Change id to class -->
+                          <li class="list-group-item d-flex align-items-center">
+                            <input type="text" class="form-control me-2" name="<%= section %>Title[]"
+                              placeholder="Title" />
+                            <input type="number" class="form-control me-2" name="<%= section %>Distance[]"
+                              placeholder="Distance (km)" min="0" step="0.1" />
+                            <button type="button" class="btn btn-danger btn-sm remove-item-btn">Remove</button>
+                          </li>
+                        </ul>
+                        <button type="button" class="btn btn-secondary mt-2 add-item-btn"
+                          data-list-id="list-<%= index %>">Add Item</button>
+                      </div>
+                      <% }) %>
 
 
-              <button type="button" class="btn btn-secondary mb-3" id="addRoomBtn">Add Another Room</button>
+                        <!-- add description house -->
+                        <div id="descriptionsContainer">
+                          <div class="form-group">
+                            <label for="description">Description:</label>
+                            <textarea class="form-control" name="descriptions[]" rows="2" required></textarea>
+                            
+                          </div>
+                        </div>
+
+                        <button type="button" class="btn btn-secondary mt-2" mt-2 id="addDescriptionBtn">Add item</button>
+
+
+                        <div class="row">
+                          <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary my-4 w-100">Add House</button>
+                          </div>
+                          <div class="col-md-6">
+                            <button type="reset" class="btn btn-danger my-4 w-100">Reset</button>
+                          </div>
+                        </div>
+              </form>
             </div>
-            <h3 class="mt-4">House Features</h3>
-            <% categories.forEach(category=> { %>
-              <h4>
-                <%= category.section %>
-              </h4>
-              <div class="row">
-                <% category.items.forEach(item=> { %>
-                  <div class="col-md-6 mb-3">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="available_<%= item %>" id="<%= item %>"
-                        value="true" />
-                      <label class="form-check-label" for="<%= item %>">
-                        <%= item %>
-                      </label>
-                    </div>
-                  </div>
-                  <% }) %>
-              </div>
-              <% }) %>
-
-                <h3 class="mt-4">Environment</h3>
-                <% environment.forEach((section, index)=> { %>
-                  <div class="mb-4">
-                    <h5>
-                      <%= section %>
-                    </h5>
-                    <ul class="list-group" id="list-<%= index %>">
-                      <input type="hidden" class="nameInput" value="<%= section %>"> <!-- Change id to class -->
-                      <li class="list-group-item d-flex align-items-center">
-                        <input type="text" class="form-control me-2" name="<%= section %>Title[]" placeholder="Title" />
-                        <input type="number" class="form-control me-2" name="<%= section %>Distance[]"
-                          placeholder="Distance (km)" min="0" step="0.1" />
-                        <button type="button" class="btn btn-danger btn-sm remove-item-btn">Remove</button>
-                      </li>
-                    </ul>
-                    <button type="button" class="btn btn-secondary mt-2 add-item-btn"
-                      data-list-id="list-<%= index %>">Add Item</button>
-                  </div>
-                  <% }) %>
-
-
-
-
-
-                    <div class="row">
-                      <div class="col-md-6">
-                        <button type="submit" class="btn btn-primary my-4 w-100">Add House</button>
-                      </div>
-                      <div class="col-md-6">
-                        <button type="reset" class="btn btn-danger my-4 w-100">Reset</button>
-                      </div>
-                    </div>
-                    </form>
-                    </div>
         </section>
     </main>
 
@@ -238,6 +249,7 @@
     <script src="../js/sidebars.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/addHouse.js"></script>
+
 
 
 </body>

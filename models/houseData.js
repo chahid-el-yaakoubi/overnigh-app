@@ -30,6 +30,7 @@ const houseSchema = new mongoose.Schema({
     default: {},
   },
   images: [String], 
+  descriptions: [String],
 }, { timestamps: true });
 
 module.exports = mongoose.model('House', houseSchema);

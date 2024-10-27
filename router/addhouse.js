@@ -64,7 +64,7 @@ routerAddHouse.post('/user/addhouse.html', async (req, res) => {
       }
     });
 
-    // console.log(environmentData)
+    const descriptions = req.body.descriptions || [];
 
     if (id) {
       // Update existing house
@@ -86,7 +86,8 @@ routerAddHouse.post('/user/addhouse.html', async (req, res) => {
         },
         rooms,
         features: selectedFeaturesBySection,
-        environment: environmentData
+        environment: environmentData,
+        descriptions: descriptions
       });
     } else {
       // Create new house
@@ -109,7 +110,8 @@ routerAddHouse.post('/user/addhouse.html', async (req, res) => {
         },
         rooms,
         features: selectedFeaturesBySection,
-        environment: environmentData
+        environment: environmentData,
+        descriptions: descriptions
       });
 
       await newHouse.save();
@@ -119,6 +121,15 @@ routerAddHouse.post('/user/addhouse.html', async (req, res) => {
   } catch (error) {
     console.error('Error adding or updating house:', error);
     res.status(500).send('An error occurred while adding or updating the house.');
+  }
+});
+
+routerAddHouse.get('/detailhouse/:id', async (req, res) => {
+  try {
+    const house = await House.findById(req.params.id);
+    res.render('client/home', { house });
+  } catch (error) {
+    res.status(500).send("Error retrieving house data");
   }
 });
 
