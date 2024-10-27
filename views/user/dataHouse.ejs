@@ -36,6 +36,14 @@
     body {
     width: 99.5%;
     }
+    .div-table {
+      max-height: 85vh; overflow-y: scroll; scrollbar-width: none;
+    }
+    @media screen and (min-width: 676px) {
+      .div-table {
+        height: 100vh;
+      }
+    } and 
   </style>
   <body>
 
@@ -50,11 +58,11 @@
       <p><a href="/hoooommme.html">Home</a> ><a href="/dataHouse">Houses</a></p>
 
 
-        <div style="max-height: 86vh; overflow-y: scroll; scrollbar-width: none;">
+        <div class="div-table">
         <table style="width: 100%;" id="example"  class="text-center mx-auto table mt-5 table-striped table-bordered" >
             <thead>
               <tr>
-                <th scope="col">#</th>
+                <th scope="col"># </th>
                 <th scope="col">Ville</th>
                 <th scope="col">Quartier</th>
                 <th scope="col">Nom</th>

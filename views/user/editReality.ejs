@@ -235,11 +235,10 @@
                                                     <textarea name="description<%= item %>" class="form-control mt-2" 
                                                         id="description<%= item %>" 
                                                         placeholder="Add description for <%= item %>" rows="3"  
-                                                        >
-                                                       <% const feature = realty.features.find(feature => feature.item === item);
+                                                        <% const feature = realty.features.find(feature => feature.item === item);
                                                         %>
-                                                        <%= feature ? feature.description : '' %>
-                                                    </textarea>
+                                                        <% const ddd = feature ? feature.description : '' %>
+                                                        ><%= ddd.trim() %></textarea>
                                                 </div>
                                             </div>
                                         <% }) %>
@@ -256,13 +255,10 @@
 
 
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <button type="submit" class="btn btn-primary my-4 w-100">Add
-                                            House</button>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary my-4 w-100">Update</button>
                                     </div>
-                                    <div class="col-md-6">
-                                        <button type="reset" class="btn btn-danger my-4 w-100">Reset</button>
-                                    </div>
+                                    
                                 </div>
                             </form>
                         </div>

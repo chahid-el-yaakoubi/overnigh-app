@@ -1,9 +1,29 @@
+*{
+  body {
+  
+    min-width: 900px;
+    height: 100vh;
+  }
+}
+
 .bi-lightning-charge::before{
   margin-right: 1rem;
   font-size: 1.9rem;
 }
 
 
+table td:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+table td{
+  font-size: 11px;
+}
+table th{
+  font-size: 12px;
+}
 /* SIDEBAR */
 .sidebar{
   width: 280px;
