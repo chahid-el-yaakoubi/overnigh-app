@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 
@@ -51,7 +50,8 @@
                                     <div class="mb-3 col-md-4">
                                         <label for="partnerName" class="form-label">Nom:</label>
                                         <input type="text" class="form-control" id="partnerName" name="partnerName"
-                                            placeholder="Enter partner's name" value="<%=  realty && realty.partnerName? realty.partnerName : '' %> "/>
+                                            placeholder="Enter partner's name"
+                                            value="<%=  realty && realty.partnerName? realty.partnerName : '' %> " />
                                     </div>
                                     <div class="mb-3 col-md-4">
                                         <label for="partnerLastName" class="form-label">Prénom:</label>
@@ -62,8 +62,8 @@
                                     <div class="col-md-4">
                                         <label for="phoneNumber" class="form-label">Phone Number</label>
                                         <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
-                                            placeholder="Enter phone number"  pattern="[0-9]{10}" 
-                                            value="<%=  realty && realty.phoneNumber? realty.phoneNumber : '' %>"  />
+                                            placeholder="Enter phone number" pattern="[0-9]{10}"
+                                            value="<%=  realty && realty.phoneNumber? realty.phoneNumber : '' %>" />
                                     </div>
                                 </div>
 
@@ -72,22 +72,27 @@
                                     <div class="col-md-4">
                                         <select class="form-select" id="city" name="city">
                                             <option selected disabled>Ville</option>
-                                            <option value="nador" <%= realty && realty.city === "nador"? 'selected' : '' %>>Nador</option>
+                                            <option value="nador" <%=realty && realty.city==="nador" ? 'selected' : ''
+                                                %>>Nador</option>
                                         </select>
                                     </div>
                                     <div class="col-md-4">
                                         <select class="form-select" id="neighborhood" name="neighborhood">
                                             <option selected disabled>Quartier</option>
-                                            <option value="hayalmatar" <%= realty && realty.neighborhood === "nador"? 'selected' : '' %>>Hay-Al-Matar</option>
+                                            <option value="hayalmatar" <%=realty && realty.neighborhood==="nador"
+                                                ? 'selected' : '' %>>Hay-Al-Matar</option>
                                         </select>
                                     </div>
 
                                     <div class="mb-3 col-md-4">
                                         <select class="form-select" id="type" name="type">
                                             <option selected disabled>villa/appartement</option>
-                                            <option value="villa" <%= realty && realty.type === "villa"? 'selected' : '' %>>Villa</option>
-                                            <option value="appartement" <%= realty && realty.type === "appartement"? 'selected' : '' %>>Appartement</option>
-                                            <option value="maison" <%= realty && realty.type === "maison"? 'selected' : '' %>>maison</option>
+                                            <option value="villa" <%=realty && realty.type==="villa" ? 'selected' : ''
+                                                %>>Villa</option>
+                                            <option value="appartement" <%=realty && realty.type==="appartement"
+                                                ? 'selected' : '' %>>Appartement</option>
+                                            <option value="maison" <%=realty && realty.type==="maison" ? 'selected' : ''
+                                                %>>maison</option>
                                         </select>
                                     </div>
                                 </div>
@@ -96,12 +101,14 @@
                                     <div class="col-md-4">
                                         <label for="floor" class="form-label">Nombre de piece:</label>
                                         <input type="number" class="form-control" id="piececount" name="piececount"
-                                            placeholder="Enter nombre étages" value="<%=  realty && realty.piececount? realty.piececount : '' %>"/>
+                                            placeholder="Enter nombre étages"
+                                            value="<%=  realty && realty.piececount? realty.piececount : '' %>" />
                                     </div>
                                     <div class="mb-3 col-md-4">
                                         <label for="apartmentName" class="form-label">Nom d'appartement:</label>
                                         <input type="text" class="form-control" id="apartmentName" name="apartmentName"
-                                            placeholder="Enter apartment name" value="<%=  realty && realty.apartmentName? realty.apartmentName : '' %>" />
+                                            placeholder="Enter apartment name"
+                                            value="<%=  realty && realty.apartmentName? realty.apartmentName : '' %>" />
                                     </div>
                                     <div class="col-md-4">
                                         <div class="row">
@@ -109,16 +116,20 @@
                                                 <label for="furniture" class="form-label">Meubles:</label>
                                                 <select class="form-select" id="furniture" name="furniture">
                                                     <option selected disabled>Meubles</option>
-                                                    <option value="true" <%= realty && realty.furniture === "true"? 'selected' : '' %>>équipe de meubles</option>
-                                                    <option value="false" <%= realty && realty.furniture === "false"? 'selected' : '' %>>sans meubles</option>
+                                                    <option value="true" <%=realty && realty.furniture==="true"
+                                                        ? 'selected' : '' %>>équipe de meubles</option>
+                                                    <option value="false" <%=realty && realty.furniture==="false"
+                                                        ? 'selected' : '' %>>sans meubles</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="elevator" class="form-label">Acensseur:</label>
                                                 <select class="form-select" id="elevator" name="elevator">
                                                     <option selected disabled>Acensseur</option>
-                                                    <option value="true" <%= realty && realty.elevator === "true"? 'selected' : '' %>>Oui</option>
-                                                    <option value="false" <%= realty && realty.elevator === "false"? 'selected' : '' %>>No</option>
+                                                    <option value="true" <%=realty && realty.elevator==="true"
+                                                        ? 'selected' : '' %>>Oui</option>
+                                                    <option value="false" <%=realty && realty.elevator==="false"
+                                                        ? 'selected' : '' %>>No</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -132,18 +143,21 @@
                                     <div class="col-md-4">
                                         <label for="floor" class="form-label">étage:</label>
                                         <input type="number" class="form-control" id="floor" name="floor"
-                                            placeholder="Enter étage" value="<%=  realty && realty.floor? realty.floor : '' %>"/>
+                                            placeholder="Enter étage"
+                                            value="<%=  realty && realty.floor? realty.floor : '' %>" />
                                     </div>
 
                                     <div class="col-md-4">
                                         <label for="area" class="form-label">Surface total(sqm):</label>
                                         <input type="number" class="form-control" id="area" name="area"
-                                            placeholder="Enter surface maision" value="<%=  realty && realty.floor? realty.floor : '' %>" />
+                                            placeholder="Enter surface maision"
+                                            value="<%=  realty && realty.floor? realty.floor : '' %>" />
                                     </div>
                                     <div class="col-md-4">
                                         <label for="price" class="form-label">Prix:</label>
                                         <input type="number" class="form-control" id="price" name="price"
-                                            placeholder="Enter prix" value="<%=  realty && realty.area? realty.area : '' %>" />
+                                            placeholder="Enter prix"
+                                            value="<%=  realty && realty.area? realty.area : '' %>" />
                                     </div>
                                 </div>
 
@@ -152,18 +166,21 @@
                                     <div class="col-md-4">
                                         <label for="CondominiumFees" class="form-label">Frais de copropriété:</label>
                                         <input type="text" class="form-control" id="CondominiumFees"
-                                            name="CondominiumFees" placeholder="Enter Frais de copropriété"  value="<%=  realty && realty.CondominiumFees? realty.CondominiumFees : '' %>"/>
+                                            name="CondominiumFees" placeholder="Enter Frais de copropriété"
+                                            value="<%=  realty && realty.CondominiumFees? realty.CondominiumFees : '' %>" />
                                     </div>
 
                                     <div class="col-md-4">
                                         <label for="PaymentTerms" class="form-label">Modalités de Paiement:</label>
                                         <input type="text" class="form-control" id="PaymentTerms" name="PaymentTerms"
-                                            placeholder="Enter Modalités de Paiement "  value="<%=  realty && realty.PaymentTerms? realty.PaymentTerms : '' %>"/>
+                                            placeholder="Enter Modalités de Paiement "
+                                            value="<%=  realty && realty.PaymentTerms? realty.PaymentTerms : '' %>" />
                                     </div>
                                     <div class="col-md-4">
                                         <label for="DateCreate" class="form-label">Année de Construction :</label>
                                         <input type="text" class="form-control" id="DateCreate" name="DateCreate"
-                                            placeholder="Enter Année de Construction "  value="<%=  realty && realty.DateCreate? realty.DateCreate : '' %>"/>
+                                            placeholder="Enter Année de Construction "
+                                            value="<%=  realty && realty.DateCreate? realty.DateCreate : '' %>" />
                                     </div>
                                 </div>
 
@@ -171,14 +188,16 @@
                                     <div class="col-md-6">
                                         <label for="status" class="form-label">État de l'Appartement : </label>
                                         <input type="text" class="form-control" id="status" name="status"
-                                            placeholder="Neuf, Rénové, À Rénovation... " value="<%=  realty && realty.status? realty.status : '' %>"/>
+                                            placeholder="Neuf, Rénové, À Rénovation... "
+                                            value="<%=  realty && realty.status? realty.status : '' %>" />
                                     </div>
                                     <div class="col-md-6 ">
                                         <div class="">
                                             <label for="position" class="form-label">position : </label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="position" name="position"
-                                                    placeholder="Enter house position"  value="<%=  realty && realty.position? realty.position : '' %>"/>
+                                                    placeholder="Enter house position"
+                                                    value="<%=  realty && realty.position? realty.position : '' %>" />
                                                 <button type="button" class="btn btn-outline-secondary"
                                                     onclick="window.open('https://www.google.com/maps', '_blank')">
                                                     Go to Map
@@ -199,13 +218,15 @@
                                             <div class="mb-3 col-md-6 ">
                                                 <label for="RoomCount" class="form-label">Nombre des chambres</label>
                                                 <input type="number" class="form-control" id="RoomCount"
-                                                    name="RoomCount" placeholder="Enter la nombre des chambres" value="<%=  realty && realty.rooms.RoomCount? realty.rooms.RoomCount : '' %>" />
+                                                    name="RoomCount" placeholder="Enter la nombre des chambres"
+                                                    value="<%=  realty && realty.rooms.RoomCount? realty.rooms.RoomCount : '' %>" />
                                             </div>
 
                                             <div class="mb-3 col-md-6 ">
                                                 <label for="RoomDescription" class="form-label">Description</label>
-                                                <textarea class="form-control" id="RoomDescription" name="RoomDescription"
-                                                    placeholder="description" rows="2"> <%=  realty && realty.rooms.RoomDescription? realty.rooms.RoomDescription : '' %></textarea>
+                                                <textarea class="form-control" id="RoomDescription"
+                                                    name="RoomDescription" placeholder="description"
+                                                    rows="2"> <%=  realty && realty.rooms.RoomDescription? realty.rooms.RoomDescription : '' %></textarea>
                                             </div>
 
                                         </div>
@@ -213,53 +234,67 @@
                                     </div>
                                 </div>
                                 <h3 class="mt-4">House Features</h3>
-                                <% categories.forEach(category => { %>
-                                    <h4><%= category.section %></h4>
+                                <% categories.forEach(category=> { %>
+                                    <h4>
+                                        <%= category.section %>
+                                    </h4>
                                     <div class="row">
-                                        <% category.items.forEach(item => { %>
+                                        <% category.items.forEach(item=> { %>
                                             <div class="col-md-6 mb-3">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox"
                                                         name="available_<%= item %>" id="<%= item %>"
-                                                        value="<%= item %>"
-                                                        <% if (realty && realty.features && realty.features.some(feature => feature.item === item)) { %>
-                                                            checked
-                                                        <% } %>
+                                                        value="<%= item %>" <% if (realty && realty.features &&
+                                                        realty.features.some(feature=> feature.item === item)) { %>
+                                                    checked
+                                                    <% } %>
                                                         onclick="toggleDescriptionField('<%= item %>')" />
-                                                    <label class="form-check-label" for="<%= item %>">
-                                                        <%= item %>
-                                                    </label>
+                                                            <label class="form-check-label" for="<%= item %>">
+                                                                <%= item %>
+                                                            </label>
                                                 </div>
                                                 <!-- Container for the dynamic textarea -->
                                                 <div class="form-check" id="descriptionContainer_<%= item %>">
-                                                    <textarea name="description<%= item %>" class="form-control mt-2" 
-                                                        id="description<%= item %>" 
-                                                        placeholder="Add description for <%= item %>" rows="3"  
-                                                        <% const feature = realty.features.find(feature => feature.item === item);
+                                                    <textarea name="description<%= item %>" class="form-control mt-2"
+                                                        id="description<%= item %>"
+                                                        placeholder="Add description for <%= item %>" rows="3" <% const
+                                                        feature=realty.features.find(feature=> feature.item === item);
                                                         %>
                                                         <% const ddd = feature ? feature.description : '' %>
                                                         ><%= ddd.trim() %></textarea>
                                                 </div>
                                             </div>
-                                        <% }) %>
+                                            <% }) %>
                                     </div>
-                                <% }) %>
-
-                                
-                                
+                                    <% }) %>
 
 
 
 
+                                        <div id="descriptionsContainer">
+                                            <% realty.descriptions.forEach(function(description, index) { %>
+                                                <div class="form-group description-group">
+                                                    <label for="description">Description <%= index + 1 %>:</label>
+                                                    <textarea class="form-control" name="descriptions[]"
+                                                        rows="3"><%= description %></textarea>
+                                                </div>
+                                                <% }) %>
+                                        </div>
+
+                                        <!-- Add Another Description Button -->
+                                        <button type="button" class="btn btn-secondary mt-2" id="addDescriptionBtn">Add
+                                            item</button>
 
 
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary my-4 w-100">Update</button>
-                                    </div>
-                                    
-                                </div>
+
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <button type="submit" class="btn btn-primary my-4 w-100">Update</button>
+                                            </div>
+
+                                        </div>
                             </form>
                         </div>
                 </section>
@@ -268,7 +303,57 @@
         <script src="../js/bootstrap.bundle.min.js"></script>
         <script src="../js/sidebars.js"></script>
         <script src="../js/main.js"></script>
+        <script>
+    // Descriptions houses
+    document.getElementById('addDescriptionBtn').addEventListener('click', function () {
+        const descriptionsContainer = document.getElementById('descriptionsContainer');
 
+        // Create a new description div
+        const newDescriptionDiv = document.createElement('div');
+        newDescriptionDiv.className = 'form-group description-group';
+
+        // Create a new textarea
+        const newDescriptionTextarea = document.createElement('textarea');
+        newDescriptionTextarea.className = 'form-control my-2';
+        newDescriptionTextarea.name = 'descriptions[]';
+        newDescriptionTextarea.rows = 2;
+        newDescriptionTextarea.placeholder = 'Add another description';
+        newDescriptionDiv.appendChild(newDescriptionTextarea);
+
+        // Create a remove button for the textarea
+        const removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.className = 'btn btn-danger mt-2 removeDescriptionBtn';
+        removeButton.innerText = 'Remove';
+        newDescriptionDiv.appendChild(removeButton);
+
+        descriptionsContainer.appendChild(newDescriptionDiv);
+
+        // Add event listener for remove button
+        removeButton.addEventListener('click', function () {
+            descriptionsContainer.removeChild(newDescriptionDiv);
+            toggleRemoveButtons();
+        });
+
+        toggleRemoveButtons();
+    });
+
+    function toggleRemoveButtons() {
+        const descriptionGroups = document.querySelectorAll('.description-group');
+        const removeButtons = document.querySelectorAll('.removeDescriptionBtn');
+        
+        // Show remove buttons if more than one description exists
+        if (descriptionGroups.length > 1) {
+            removeButtons.forEach(button => button.style.display = 'inline-block');
+        } else {
+            removeButtons.forEach(button => button.style.display = 'none');
+        }
+    }
+
+    // Initialize visibility of remove buttons on load
+    toggleRemoveButtons();
+</script>
+ 
 
 </body>
 

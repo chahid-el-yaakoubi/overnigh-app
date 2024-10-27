@@ -41,11 +41,11 @@ const user_index_get = async(req, res) => {
     const countA = await MydataCustemer.countDocuments({});
     const countB = await Houses.countDocuments({});
     const countC = await Realty.countDocuments({});
-
     res.render('index', {
       countA: countA,
       countB: countB,
-      countC: countC
+      countC: countC,
+      
     });
   } catch (err) {
     console.error('Error counting documents:', err);
@@ -53,24 +53,14 @@ const user_index_get = async(req, res) => {
   }
 };
 
-const user_login_get = async(req, res) => {
-  try {
-    const countA = await MydataCustemer.countDocuments({});
-    
 
-    res.render('Login', {
-      countA: countA,
-    });
-  } catch (err) {
-    console.error('Error counting documents:', err);
-    res.status(500).send('Error retrieving counts');
-  }
-};
+
+
+
 
 const house_index_get = (req, res) => {
   Houses.countDocuments()
     .then(counthouse => {
-      console.log(counthouse);
       res.render('index', { counthouse, moment });
       // res.render('user/dataUser', { count, moment });
     })
@@ -140,7 +130,7 @@ const user_edit_put = (req, res) => {
     new: true,
     runValidators: true,
   })
-    .then(() => res.redirect('/'))
+    .then(() => res.redirect('/hoooommme.html'))
     .catch(err => console.error(err));
 };
 
@@ -175,5 +165,4 @@ module.exports = {
   realty_data_get,
   realty_edit_delete,
   realtyimgs_edit_get,
-  user_login_get
 };

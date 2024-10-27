@@ -1,8 +1,9 @@
 const express = require('express');
 const routerAddRealty = express.Router();
 const Realty = require('../models/reatlyDate');
-const moment = require('moment');
+const isAuthenticated = require('./authMiddleware'); // Import your authentication middleware
 
+routerAddRealty.use(isAuthenticated); 
 
 const multer = require('multer');
 const path = require('path');
@@ -96,6 +97,7 @@ routerAddRealty.post('/addRealty.html', async (req, res) => {
             });
         });
 
+        const descriptions = (req.body.descriptions || []).filter(description => description.trim() !== '');
 
 
         // Data object to create or update realty entry
@@ -123,9 +125,9 @@ routerAddRealty.post('/addRealty.html', async (req, res) => {
                 RoomDescription,
             },
             features: featuresData,  // Include formatted categories here
+            descriptions: descriptions,
         };
 
-        console.log("Realty data:", realtyData);
         let realty;
         if (realtyId) {
             // Update if realtyId exists

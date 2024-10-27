@@ -1,6 +1,8 @@
 const express = require('express');
 const routerAddHouse = express.Router();
+const isAuthenticated = require('./authMiddleware'); // Import your authentication middleware
 const House = require('../models/houseData');
+routerAddHouse.use(isAuthenticated); 
 
 const categories = [
   { section: 'Informations générales', items: ['Piscine extérieure', 'Parking gratuit', 'Chambres familiales', 'Chambres non-fumeurs', 'Terrasse', 'Service de ménage quotidien', 'Internet (Wi-Fi)', 'Vue', 'Cuisine', 'Ascenseur', 'Climatisation', 'Télévision'] },
@@ -64,7 +66,8 @@ routerAddHouse.post('/user/addhouse.html', async (req, res) => {
       }
     });
 
-    const descriptions = req.body.descriptions || [];
+    const descriptions = (req.body.descriptions || []).filter(description => description.trim() !== '');
+
 
     if (id) {
       // Update existing house
@@ -127,7 +130,7 @@ routerAddHouse.post('/user/addhouse.html', async (req, res) => {
 routerAddHouse.get('/detailhouse/:id', async (req, res) => {
   try {
     const house = await House.findById(req.params.id);
-    res.render('client/home', { house });
+    res.render('clientUser/home', { house });
   } catch (error) {
     res.status(500).send("Error retrieving house data");
   }

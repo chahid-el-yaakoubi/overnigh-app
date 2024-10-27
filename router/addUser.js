@@ -1,6 +1,9 @@
 var express = require('express');
 var bcrypt = require('bcrypt'); // Import bcrypt
 var routerUser = express.Router();
+const isAuthenticated = require('./authMiddleware'); // Import your authentication middleware
+
+routerUser.use(isAuthenticated);
 
 const MydataCustemer = require('../models/myDataSchema'); // Ensure correct path
 
@@ -38,7 +41,7 @@ routerUser.post('/user/add.html', async (req, res) => {
     });
 
     await newCustomer.save();
-    res.redirect('/');
+    res.redirect('/hoooommme.html');
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error'); // Send an error response

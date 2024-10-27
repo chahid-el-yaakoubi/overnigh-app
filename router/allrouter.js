@@ -1,10 +1,13 @@
 var express = require('express');
 var router = express.Router();
-const myController = require('../controller/Controllers')
-// Routes
+const myController = require('../controller/Controllers');
+const isAuthenticated = require('./authMiddleware'); // Import your authentication middleware
 
+// Apply isAuthenticated middleware to the routes that need protection
+router.use(isAuthenticated); // This will apply to all routes below
+
+// Routes
 router.get('/hoooommme.html', myController.user_index_get);
-router.get('/', myController.user_login_get);
 router.get('/datahouse', myController.user_house_get);
 router.get('/dataUser', myController.user_data_get);
 router.get('/dataRealty', myController.realty_data_get);
@@ -18,7 +21,5 @@ router.get('/house/:id-edit', myController.house_edit_get);
 router.get('/house/:id-eimgs', myController.houseimgs_edit_get);
 router.get('/realty/:id-eimgs', myController.realtyimgs_edit_get);
 router.get('/user/:id', myController.user_view_get);
-  
 
 module.exports = router;
-

@@ -288,6 +288,46 @@
                 }
             }
 
+
+            // descriptions houses
+            document.getElementById('addDescriptionBtn').addEventListener('click', function () {
+                const descriptionsContainer = document.getElementById('descriptionsContainer');
+
+                // Create a new description div
+                const newDescriptionDiv = document.createElement('div');
+                newDescriptionDiv.className = 'form-group';
+
+                const newDescriptionTextarea = document.createElement('textarea');
+                newDescriptionTextarea.className = 'form-control my-2';
+                newDescriptionTextarea.name = 'descriptions[]';
+                newDescriptionTextarea.rows = 2;
+                newDescriptionTextarea.placeholder = 'Add another description';
+                newDescriptionDiv.appendChild(newDescriptionTextarea);
+
+                const removeButton = document.createElement('button');
+                removeButton.type = 'button';
+                removeButton.className = 'btn btn-danger mt-2 removeDescriptionBtn';
+                removeButton.innerText = 'X';
+                newDescriptionDiv.appendChild(removeButton);
+
+                descriptionsContainer.appendChild(newDescriptionDiv);
+
+                // Show the remove button for the first description
+                const firstRemoveBtn = document.querySelector('.removeDescriptionBtn');
+                if (firstRemoveBtn) {
+                    firstRemoveBtn.style.display = 'inline-block';
+                }
+
+                // Add event listener for the remove button
+                removeButton.addEventListener('click', function () {
+                    descriptionsContainer.removeChild(newDescriptionDiv);
+                    // Hide the remove button if there are no descriptions left
+                    if (descriptionsContainer.children.length === 1) {
+                        firstRemoveBtn.style.display = 'none';
+                    }
+                });
+            });
+
         </script>
 
 </body>

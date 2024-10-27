@@ -11,9 +11,9 @@ html {
 
 .dropdown-toggle { 
   outline: 0;
-  position: fixed;
+  position: fixed !important;
   top: 10px;
-  right: 200px;
+  right: 300px;
 }
 
 .btn-toggle {
@@ -71,3 +71,4 @@ html {
   borer-radius: 10px;
   border-radius: 6px;
 }
+

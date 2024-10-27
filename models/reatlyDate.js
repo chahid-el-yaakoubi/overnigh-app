@@ -29,7 +29,8 @@ const realtySchema = new mongoose.Schema({
             description: String
         }
     ],
-    images: [String]
+    images: [String],
+    descriptions: [String],
 }, { timestamps: true });
 
 const Realty =  mongoose.model('Realty', realtySchema);

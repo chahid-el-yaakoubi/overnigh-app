@@ -4,6 +4,9 @@ const path = require('path');
 const fs = require('fs');
 const routerAddHouse = express.Router();
 const House = require('../models/houseData');
+const isAuthenticated = require('./authMiddleware'); // Import your authentication middleware
+
+routerAddHouse.use(isAuthenticated); 
 
 // Ensure the uploads directory exists
 const uploadDir = path.join(__dirname, '../public/uploads');
