@@ -36,15 +36,11 @@ app.get('/', (req, res) => {
 });
 
 // Render login page with document count
-app.get('/login.html', async (req, res) => {
-  try {
-    const countA = await MydataCustemer.countDocuments({});
-    res.render('login', { countA: countA });
-  } catch (err) {
-    console.error('Error counting documents:', err);
-    res.status(500).send('Error retrieving counts');
-  }
+app.get('/login.html', (req, res) => {
+  res.render('login'); // تأكد من أن هذا يتطابق مع اسم ملف EJS الخاص بك
 });
+
+
 
 // Middleware setup
 app.use(express.urlencoded({ extended: true }));
