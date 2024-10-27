@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 app.get('/login.html', async (req, res) => {
   try {
     const countA = await MydataCustemer.countDocuments({});
-    res.render('../login', { countA: countA });
+    res.render('login', { countA: countA });
   } catch (err) {
     console.error('Error counting documents:', err);
     res.status(500).send('Error retrieving counts');
@@ -41,6 +41,7 @@ app.get('/login.html', async (req, res) => {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.json());
 
