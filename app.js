@@ -52,7 +52,6 @@ app.post('/login.html', async (req, res) => {
     const match = await bcrypt.compare(password, customer.password);
 
     if (match) {
-      console.log('Attempting to log in:', { Email, password });
 
       // Passwords match, proceed with login
       res.redirect('/hoooommme.html'); // Redirect to home
