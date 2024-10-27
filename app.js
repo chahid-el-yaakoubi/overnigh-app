@@ -18,8 +18,8 @@ const MydataCustemer = require('./models/myDataSchema');
 const isAuthenticated = require('./router/authMiddleware');
 
 // Database Connection
-const pass = "T2dI5Ka525xaJgUo";
-const conx = `mongodb+srv://dev1234:${pass}@cluster0.xj4k9.mongodb.net/all-data?retryWrites=true&w=majority`;
+// const pass = "T2dI5Ka525xaJgUo";
+// const conx = `mongodb+srv://dev1234:${pass}@cluster0.xj4k9.mongodb.net/all-data?retryWrites=true&w=majority`;
 
 // Set up LiveReload for development
 const liveReloadServer = livereload.createServer();
