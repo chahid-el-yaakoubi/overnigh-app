@@ -24,13 +24,13 @@ liveReloadServer.server.once('connection', () => {
 });
 
 app.get('/', (req, res) => {
-  res.redirect('/login.html');
+  res.redirect('login.html');
 });
 
 app.get('/login.html', async (req, res) => {
   try {
     const countA = await MydataCustemer.countDocuments({});
-    res.render('login', { countA: countA });
+    res.render('../login', { countA: countA });
   } catch (err) {
     console.error('Error counting documents:', err);
     res.status(500).send('Error retrieving counts');
