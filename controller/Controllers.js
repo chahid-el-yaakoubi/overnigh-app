@@ -84,9 +84,9 @@ const user_house_get = (req, res) => {
 };
 const house_edit_get = (req, res) => {
   Houses.findById(req.params.id)
-    .then(datah => 
-      res.render('user/edithouse', { house: datah, categories, environment }),
-      res.render('index', { counthouse: datah })
+    .then(house => 
+      res.render('user/edithouse', { house, categories, environment }),
+      // res.render('index', { counthouse: datah })
     )
     .catch(err => console.error(err));
 

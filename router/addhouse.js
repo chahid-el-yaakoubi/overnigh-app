@@ -64,7 +64,7 @@ routerAddHouse.post('/user/addhouse.html', async (req, res) => {
       }
     });
 
-    console.log(environmentData)
+    // console.log(environmentData)
 
     if (id) {
       // Update existing house
