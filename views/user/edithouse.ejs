@@ -251,18 +251,120 @@
                             data-list-id="list-<%= index %>">Add Item</button>
                         </div>
                         <% }) %>
+                          <h3 class="mt-4">Update Conditions</h3>
+                          <div>
+                            <div class="row">
+                              <div class="form-group col-md-3 mt-2">
+                                <label for="arrival">From</label>
+                                <input type="text" class="form-control" id="arrival" name="arrival"
+                                  placeholder="14:30 a 17:00" value="<%= house.condition.arrival %>">
+                              </div>
 
+                              <div class="form-group col-md-3 mt-2">
+                                <label for="departure">TO</label>
+                                <input type="text" class="form-control" id="departure" name="departure"
+                                  placeholder="11:00 a 12:30" value="<%= house.condition.departure %>">
+                              </div>
+
+                              <div class="col-md-2">
+                                <label for="smoker" class="form-label">Fumeurs</label>
+                                <select class="form-select" name="smoker">
+                                  <option selected disabled>oui/no</option>
+                                  <option value="yes" <%=house.condition.smoker==='yes' ? 'selected' : '' %>>Oui
+                                  </option>
+                                  <option value="no" <%=house.condition.smoker==='no' ? 'selected' : '' %>>Non</option>
+                                </select>
+                              </div>
+
+                              <div class="col-md-4">
+                                <div class="row">
+                                  <div class="col-sm-6">
+                                    <label for="animal" class="form-label">Animaux domestiques</label>
+                                    <select class="form-select" name="animal">
+                                      <option selected disabled>oui/no</option>
+                                      <option value="yes" <%=house.condition.animal==='yes' ? 'selected' : '' %>>Oui
+                                      </option>
+                                      <option value="no" <%=house.condition.animal==='no' ? 'selected' : '' %>>Non
+                                      </option>
+                                    </select>
+                                  </div>
+
+                                  <div class="col-sm-6">
+                                    <label for="holidays" class="form-label">Fêtes</label>
+                                    <select class="form-select" name="holidays">
+                                      <option selected disabled>oui/no</option>
+                                      <option value="yes" <%=house.condition.holidays==='yes' ? 'selected' : '' %>>Oui
+                                      </option>
+                                      <option value="no" <%=house.condition.holidays==='no' ? 'selected' : '' %>>Non
+                                      </option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row mt-3">
+                              <div class="col-md-6">
+                                <div class="row">
+                                  <div class="col-sm-3">
+                                    <label for="ageRestriction" class="form-label">Restriction d'âge</label>
+                                    <select id="yesNoSelect" class="form-select" onchange="toggleInput()"
+                                      name="ageRestriction">
+                                      <option selected disabled>oui/no</option>
+                                      <option value="yes" <%=house.condition.ageRestriction==='yes' ? 'selected' : '' %>
+                                        >Oui
+                                      </option>
+                                      <option value="no" <%=house.condition.ageRestriction==='no' ? 'selected' : '' %>
+                                        >Non
+                                      </option>
+                                    </select>
+                                  </div>
+
+                                  <div class="form-group col-sm-9 mt-2">
+                                    <label for="ageRestrictionDsc">Description:</label>
+                                    <input readonly type="text" class="form-control" id="ageRestrictionInput"
+                                      name="ageRestrictionDsc" value="<%= house.condition.ageRestrictionDsc %>">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                <div class="row">
+                                  <div class="col-sm-3">
+                                    <label for="bebebeds" class="form-label">Lits Bébé</label>
+                                    <select id="bebebeds" class="form-select" onchange="toggleBebeBedsInput()"
+                                      name="bebebeds">
+                                      <option selected disabled>oui/no</option>
+                                      <option value="yes" <%=house.condition.bebebeds==='yes' ? 'selected' : '' %>>Oui
+                                      </option>
+                                      <option value="no" <%=house.condition.bebebeds==='no' ? 'selected' : '' %>>Non
+                                      </option>
+                                    </select>
+                                  </div>
+
+                                  <div class="form-group col-sm-9 mt-2">
+                                    <label for="bedsRestrictionDsc">Description:</label>
+                                    <input readonly type="text" class="form-control" id="bedsRestrictionInput"
+                                      name="bedsRestrictionDsc" value="<%= house.condition.bedsRestrictionDsc %>">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        <h3 class="mt-4">Update Desc</h3>
                           <div id="descriptionsContainer"></div>
                           <% house.descriptions.forEach(function(description, index) { %>
                             <div class="form-group description-group">
                               <label for="description">Description <%= index + 1 %>:</label>
-                              <textarea class="form-control" name="descriptions[]" rows="3"><%= description %></textarea>
+                              <textarea class="form-control" name="descriptions[]"
+                                rows="3"><%= description %></textarea>
                             </div>
                             <% }) %>
-                          </div>
+                </div>
+                <!-- Add Another Description Button -->
+                <button type="button" class="btn btn-secondary" id="addDescriptionBtn">Add Another Description</button>
 
-                        <!-- Add Another Description Button -->
-                        <button type="button" class="btn btn-secondary" id="addDescriptionBtn">Add Another Description</button>
                 <div class="row">
                   <div class="col-md-6">
                     <button type="submit" class="btn btn-primary my-4 w-100">Update House</button>
@@ -280,6 +382,25 @@
     <script src="../js/sidebars.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/addHouse.js"></script>
+    <script>
+      function toggleInput() {
+        const ageRestrictionSelect = document.getElementById('yesNoSelect');
+        const ageRestrictionInput = document.getElementById('ageRestrictionInput');
+        ageRestrictionInput.readOnly = ageRestrictionSelect.value === 'no';
+      }
+
+      function toggleBebeBedsInput() {
+        const bebeBedsSelect = document.getElementById('bebebeds');
+        const bebeBedsInput = document.getElementById('bedsRestrictionInput');
+        bebeBedsInput.readOnly = bebeBedsSelect.value === 'no';
+      }
+
+      // Call functions on load to set the initial state
+      document.addEventListener('DOMContentLoaded', () => {
+        toggleInput();
+        toggleBebeBedsInput();
+      });
+    </script>
 </body>
 
 </html>

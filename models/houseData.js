@@ -31,6 +31,17 @@ const houseSchema = new mongoose.Schema({
   },
   images: [String], 
   descriptions: [String],
+  condition: {  
+    arrival: { type: String },
+    departure: { type: String },
+    smoker: { type: String },
+    animal: { type: String },
+    holidays: { type: String },
+    ageRestriction: { type: String },
+    ageRestrictionDsc: { type: String },
+    bebebeds: { type: String },
+    bedsRestrictionDsc: { type: String },
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model('House', houseSchema);

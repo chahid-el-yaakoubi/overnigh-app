@@ -198,48 +198,144 @@
                   </div>
                   <% }) %>
 
-                    <h3 class="mt-4">Environment</h3>
-                    <% environment.forEach((section, index)=> { %>
-                      <div class="mb-4">
-                        <h5>
-                          <%= section %>
-                        </h5>
-                        <ul class="list-group" id="list-<%= index %>">
-                          <input type="hidden" class="nameInput" value="<%= section %>"> <!-- Change id to class -->
-                          <li class="list-group-item d-flex align-items-center">
-                            <input type="text" class="form-control me-2" name="<%= section %>Title[]"
-                              placeholder="Title" />
-                            <input type="number" class="form-control me-2" name="<%= section %>Distance[]"
-                              placeholder="Distance (km)" min="0" step="0.1" />
-                            <button type="button" class="btn btn-danger btn-sm remove-item-btn">Remove</button>
-                          </li>
-                        </ul>
-                        <button type="button" class="btn btn-secondary mt-2 add-item-btn"
-                          data-list-id="list-<%= index %>">Add Item</button>
-                      </div>
-                      <% }) %>
+                    <div class="d-flex align-items-center ">
+                      <h3 class="mt-4">Environnement</h3>
+                      <button type="button" id="btnShowHide" onclick="showHide()"
+                        class="btn btn-secondary ms-5 mt-2 add-item-btn">Show Enverment</button>
+                    </div>
 
+                    <div id="Enverment" style="display: none;">
 
-                        <!-- add description house -->
-                        <div id="descriptionsContainer">
-                          <div class="form-group">
-                            <label for="description">Description:</label>
-                            <textarea class="form-control" name="descriptions[]" rows="2" required></textarea>
+                      <% environment.forEach((section, index)=> { %>
+                        <div class="mb-4">
+                          <h5>
+                            <%= section %>
+                          </h5>
+                          <ul class="list-group" id="list-<%= index %>">
+                            <input type="hidden" class="nameInput" value="<%= section %>"> <!-- Change id to class -->
+                            <li class="list-group-item d-flex align-items-center">
+                              <input type="text" class="form-control me-2" name="<%= section %>Title[]"
+                                placeholder="Title" />
+                              <input type="number" class="form-control me-2" name="<%= section %>Distance[]"
+                                placeholder="Distance (km)" min="0" step="0.1" />
+                              <button type="button" class="btn btn-danger btn-sm remove-item-btn">Remove</button>
+                            </li>
+                          </ul>
+                          <button type="button" class="btn btn-secondary mt-2 add-item-btn"
+                            data-list-id="list-<%= index %>">Add Item</button>
+                        </div>
+                        <% }) %>
+                    </div>
+
+                    <!-- conditions -->
+                    <h3 class="mt-4">Conditions</h3>
+
+                    <div>
+                      <div class="row">
+                        <div class="form-group col-md-3 mt-2">
+                          <label for="arrival">From</label>
+                          <input type="text" class="form-control" id="arrival" name="arrival"
+                            placeholder="14:30 a 17:00">
+                        </div>
+
+                        <div class="form-group col-md-3 mt-2">
+                          <label for="departure">TO</label>
+                          <input type="text" class="form-control" id="departure" name="departure"
+                            placeholder="11:00 a 12:30">
+                        </div>
+                        <div class="col-md-2">
+                          <label for="type" class="form-label">fumeurs</label>
+                          <select class="form-select" name="smoker">
+                            <option selected>oui/no</option>
+                            <option value="yes">Oui</option>
+                            <option value="no">Non</option>
+                          </select>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <label for="type" class="form-label">Animaux domestiques</label>
+                              <select class="form-select" name="animal">
+                                <option selected>oui/no</option>
+                                <option value="yes">Oui</option>
+                                <option value="no">Non</option>
+                              </select>
+                            </div>
+                            <div class="col-sm-6">
+                              <label for="type" class="form-label">Fêtes</label>
+                              <select class="form-select" name="holidays">
+                                <option selected>oui/no</option>
+                                <option value="yes">Oui</option>
+                                <option value="no">Non</option>
+                              </select>
+                            </div>
                             
                           </div>
                         </div>
+                      </div>
 
-                        <button type="button" class="btn btn-secondary mt-2" mt-2 id="addDescriptionBtn">Add item</button>
-
-
-                        <div class="row">
-                          <div class="col-md-6">
-                            <button type="submit" class="btn btn-primary my-4 w-100">Add House</button>
-                          </div>
-                          <div class="col-md-6">
-                            <button type="reset" class="btn btn-danger my-4 w-100">Reset</button>
+                      <div class="row mt-3">
+                        <div class="col-md-6">
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <label for="type" class="form-label">Restriction d'âge</label>
+                              <select id="yesNoSelect" class="form-select" onchange="toggleInput()" name="ageRestriction">
+                                <option selected disabled>oui/no</option>
+                                <option value="yes">Oui</option>
+                                <option value="no">Non</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-sm-9 mt-2">
+                              <label for="cancellation">Description:</label>
+                              <input readonly type="text" class="form-control" id="ageRestrictionInput"
+                                name="ageRestrictionDsc" >
+                            </div>
                           </div>
                         </div>
+
+                        <div class="col-md-6">
+                          <div class="row">
+                            <div class="col-sm-3">
+                                <label for="type" class="form-label">Lits Bébé</label>
+                                <select id="bebebeds" class="form-select" onchange="toggleBebeBedsInput()" name="bebebeds">
+                                    <option selected disabled>oui/no</option>
+                                    <option value="yes">Oui</option>
+                                    <option value="no">Non</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-9 mt-2">
+                                <label for="cancellation">Description:</label>
+                                <input readonly type="text" class="form-control" id="bedsRestrictionInput"
+                                       name="bedsRestrictionDsc" >
+                            </div>
+                        </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+
+                    <!-- add description house -->
+                     <h3 class="mt-4">Description House:</h3>
+                    <div id="descriptionsContainer">
+                      <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea class="form-control" name="descriptions[]" rows="2" required></textarea>
+
+                      </div>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary mt-2" mt-2 id="addDescriptionBtn">Add item</button>
+
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary my-4 w-100">Add House</button>
+                      </div>
+                      <div class="col-md-6">
+                        <button type="reset" class="btn btn-danger my-4 w-100">Reset</button>
+                      </div>
+                    </div>
               </form>
             </div>
         </section>
@@ -249,6 +345,7 @@
     <script src="../js/sidebars.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/addHouse.js"></script>
+
 
 
 

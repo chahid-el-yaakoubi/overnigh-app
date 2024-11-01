@@ -5,7 +5,7 @@ const House = require('../models/houseData');
 routerAddHouse.use(isAuthenticated); 
 
 const categories = [
-  { section: 'Informations générales', items: ['Piscine extérieure', 'Parking gratuit', 'Chambres familiales', 'Chambres non-fumeurs', 'Terrasse', 'Service de ménage quotidien', 'Internet (Wi-Fi)', 'Vue', 'Cuisine', 'Ascenseur', 'Climatisation', 'Télévision'] },
+  { section: 'Informations générales', items: ['Piscine extérieure', 'Parking gratuit', 'Chambres familiales', 'Chambres fumeurs', 'Terrasse', 'Service de ménage quotidien', 'Internet (Wi-Fi)', 'Vue', 'Cuisine', 'Ascenseur', 'Climatisation', 'Télévision'] },
   { section: 'Cuisine', items: ['Table à manger', 'Machine à café', 'Four', 'Ustensiles de cuisine', 'Bouilloire électrique', 'Lave-vaisselle', 'Réfrigérateur', 'Micro-ondes', 'Lave-linge', 'Sèche-linge'] },
   { section: 'High-tech', items: ['Télévision', 'Télévision à écran plat'] },
   { section: 'Coin salon', items: ['Coin repas', 'Canapé', 'Bureau'] },
@@ -90,7 +90,18 @@ routerAddHouse.post('/user/addhouse.html', async (req, res) => {
         rooms,
         features: selectedFeaturesBySection,
         environment: environmentData,
-        descriptions: descriptions
+        descriptions: descriptions,
+        condition: {
+          arrival: req.body.arrival,
+          departure: req.body.departure,
+          smoker: req.body.smoker,
+          animal: req.body.animal,
+          holidays: req.body.holidays,
+          ageRestriction: req.body.ageRestriction,
+          ageRestrictionDsc: req.body.ageRestrictionDsc,
+          bebebeds: req.body.bebebeds,
+          bedsRestrictionDsc: req.body.bedsRestrictionDsc,
+        }
       });
     } else {
       // Create new house
@@ -114,7 +125,18 @@ routerAddHouse.post('/user/addhouse.html', async (req, res) => {
         rooms,
         features: selectedFeaturesBySection,
         environment: environmentData,
-        descriptions: descriptions
+        descriptions: descriptions,
+        condition: {
+          arrival: req.body.arrival,
+          departure: req.body.departure,
+          smoker: req.body.smoker,
+          animal: req.body.animal,
+          holidays: req.body.holidays,
+          ageRestriction: req.body.ageRestriction,
+          ageRestrictionDsc: req.body.ageRestrictionDsc,
+          bebebeds: req.body.bebebeds,
+          bedsRestrictionDsc: req.body.bedsRestrictionDsc,
+        }
       });
 
       await newHouse.save();

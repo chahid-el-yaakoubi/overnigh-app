@@ -20,101 +20,49 @@
   <link rel="stylesheet" href="../css/clientHome.css" />
   <style>
     /* Custom styles */
-    *{
-      padding: 0;
-      margin: 0;
-    }
-    body {
-      background-color: #f8f9fa;
-      font-family: Arial, sans-serif;
-    }
-
-    .carousel img {
-      height: 500px;
-      object-fit: cover;
-      border-radius: 8px;
-      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .container {
-      background-color: #fff;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    h2,
-    h3,
-    h4 {
-      color: #007bff;
-      margin-top: 1rem;
-    }
-
-    .feature-category {
-      margin-top: 20px;
-      padding: 1rem;
-      background-color: #f8f9fa;
-      border-radius: 8px;
-      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
-    }
-
-    .feature-category h4 {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: #343a40;
-    }
-
-    .feature-list {
-      list-style: none;
-      padding: 0;
-      margin-top: 10px;
-    }
-
-    .feature-list li {
-      display: flex;
-      align-items: center;
-      font-size: 0.95rem;
-      color: #555;
-      margin-bottom: 8px;
-    }
-
-    .feature-list li i {
-      color: #28a745;
-      margin-right: 8px;
-    }
-
-    .accordion-button {
-      background-color: #e9ecef;
-      font-weight: bold;
-    }
-
-    .accordion-body {
-      background-color: #fdfdfd;
-      border-radius: 5px;
-    }
-
-    .carousel-control-prev-icon,
-    .carousel-control-next-icon {
-      background-color: #007bff;
-      border-radius: 50%;
-    }
-
-    .info-general li {
-      list-style: none;
-      border: 1px solid black;
-      border-radius: 4px;
-      padding: 8px;
-    }
-    .info-general li i {
-      border: 1px solid rgb(34, 223, 9);
-      border-radius: 4px;
-      color: rgb(78, 180, 184);
-      padding: 1px;
+    .test-color {
+      color: #353535;
     }
   </style>
 </head>
 
 <body>
+
+  <!-- <script>
+  function simplifyObject(obj) { if
+    (Array.isArray(obj)) { return obj.map(item=> simplifyObject(item));
+    } else if (obj && typeof obj === 'object') {
+    const simpleObj = {};
+    for (const key in obj) {
+    if (obj[key] && typeof obj[key] === 'object') {
+    // Extract value if it's a MongoDB-specific field
+    if ('$oid' in obj[key]) {
+    simpleObj[key] = obj[key]['$oid'];
+    } else if ('$numberInt' in obj[key]) {
+    simpleObj[key] = parseInt(obj[key]['$numberInt'], 10);
+    } else if ('$numberLong' in obj[key]) {
+    simpleObj[key] = parseInt(obj[key]['$numberLong'], 10);
+    } else if ('$date' in obj[key]) {
+    simpleObj[key] = new Date(parseInt(obj[key]['$date']['$numberLong'], 10));
+    } else {
+    // Recursively simplify nested objects
+    simpleObj[key] = simplifyObject(obj[key]);
+    }
+    } else {
+    simpleObj[key] = obj[key];
+    }
+    }
+    return simpleObj;
+    }
+    return obj;
+    }
+
+    // Simplify the complex object
+    const simpleObj = simplifyObject(house);
+    console.log(simpleObj); -->
+
+  </script>
+
 
   <div class="container my-5">
     <!-- Carousel for Images -->
@@ -138,145 +86,136 @@
       </div>
       <div class="col-md-6">
         <div>
-          <h4>La maison avec 3 chambres</h3>
-            <div class="info-general">
-              <div class="d-flex justify-content-center gap-2 my-2">
-                <li><i class='bx bxs-parking'></i>
-                  <%= house.features["Informations générales"].find(feature=> feature.includes("Parking"))%>
-                </li>
-                <li><i class='bx  bx-tv'></i>
-                  <%= house.features["Informations générales"].find(feature=> feature.includes("Té"))%>
-                </li>
-                <li><i class='bx  bx-wifi'></i>
-                  <%= house.features["Informations générales"].find(feature=> feature.includes("Internet"))%>
-                </li>
-              </div>
-              <div class="d-flex justify-content-center gap-2  my-2">
-                <li><i class='bx  bxs-landmark'></i>
-                  <%= house.features["Informations générales"].find(feature=> feature.includes("Cuisine"))%>
-                </li>
-                <li><i class='bx  bxs-landmark'></i>
-                  <%= house.features["Informations générales"].find(feature=> feature.includes("Chambres"))%>
-                </li>
-                <li><i class='bx  bxs-landmark'></i>
-                  <%= house.features["Informations générales"].find(feature=> feature.includes("non-fumeurs"))%>
-                </li>
-                
-            </div  >
-            <div class="d-flex justify-content-center gap-2   my-2">
-              <li><i class='bx  bxs-landmark'></i>
-                <%= house.features["Informations générales"].find(feature=> feature.includes("Terrasse"))%>
-              </li>
-              <li><i class='bx  bxs-landmark'></i>
-                <%= house.features["Informations générales"].find(feature=> feature.includes("Vue"))%>
-              </li>
-              <li><i class='bx  bxs-landmark'></i>
-                <%= house.features["Informations générales"].find(feature=> feature.includes("Ascenseur"))%>
-              </li>
-              <li><i class='bx  bxs-landmark'></i>
-                <%= house.features["Informations générales"].find(feature=> feature.includes("Climatisation"))%>
-              </li>
+          <% 
+          const infoGeneral = house.features["Informations générales"]; 
+          const featuresList = [
+              { key: "Parking gratuit", icon: "<i class='bx bxs-parking'></i>" },
+              { key: "Chambres familiales", icon: "<i class='bx bxs-group'></i>" },
+              { key: "Terrasse", icon: "<i class='bx bx-tree'></i>" },
+              { key: "Chambres non-fumeurs", icon: "<i class='bx bx-no-entry'></i>" },
+              { key: "Service de ménage quotidien", icon: "<i class='bx bxs-broom'></i>" },
+              { key: "Internet (Wi-Fi)", icon: "<i class='bx bx-wifi'></i>" },
+              { key: "Vue", icon: "<i class='bx bx-camera'></i>" },
+              { key: "Cuisine", icon: "<i class='bx bx-chef'></i>" },
+              { key: "Ascenseur", icon: "<i class='bx bx-up-arrow'></i>" },
+              { key: "Climatisation", icon: "<i class='bx bxs-thermometer'></i>" },
+              { key: "Télévision", icon: "<i class='bx bxs-tv'></i>" }
+          ];
+          %>
+          
+                <h4>La maison avec  <%= house.rooms.length %> chambres</h3>
+                  <div class="info-general">
+                    <ul class="features-list">
+                      <% featuresList.forEach(feature => { %>
+                          <% const isAvailable = infoGeneral.find(item => item.includes(feature.key)); %>
+                          <% if (isAvailable) { %>
+                              <li>
+                                  <%- feature.icon %> <%= feature.key %>
+                              </li>
+                          <% } %>
+                      <% }); %>
+                  </ul>
 
-            </div>
+                  <h5 class="my-4">Superficie de l'appartement : <%= house.apartmentInfo.area %> m²</h5>
 
-            <h5 class="my-4">Superficie de l'appartement : <%= house.apartmentInfo.area %> m²</h5>
-            <% house.rooms.forEach((room, i) => { %>
-              <p class="" >Chambres <%= i+1 %>: <%= room.description %> </p>
-              
-              <% if (i === 0) { %>
-                
-              <% } %>
-            <% }) %>
-            
-            
+                  <ul class="rooms-list">
+                      <% house.rooms.forEach((room, i) => { %>
+                          <li class="room-item">
+                              <p class="room-description">Chambres <%= i + 1 %>: <%= room.description %></p>
+                          </li>
+                      <% }); %>
+                  </ul>
+
+
+                  </div>
         </div>
       </div>
-    </div>
 
 
-    <!-- House Information -->
-    <h2 class="mt-4">
-      <%= house.apartmentInfo.apartmentName %>
-    </h2>
-    <p><strong>Owner:</strong>
-      <%= house.partnerName %>
-        <%= house.partnerLastName %>
-    </p>
-    <p><strong>Phone Number:</strong>
-      <%= house.phoneNumber %>
-    </p>
-    <p><strong>Location:</strong>
-      <%= house.city %>, <%= house.neighborhood %>
-    </p>
-    <p><strong>Type:</strong>
-      <%= house.type %> - <%= house.nightmonth==='night' ? 'Per Night' : 'Per Month' %>
-    </p>
-    <p><strong>Furniture:</strong>
-      <%= house.furniture==='true' ? 'Furnished' : 'Unfurnished' %>
-    </p>
-    <p><strong>Price:</strong> $<%= house.apartmentInfo.price %>
-    </p>
-    <a href="<%= house.apartmentInfo.position %>" target="_blank" class="btn btn-primary btn-sm mt-2">View on Map</a>
+      <!-- House Information -->
+      <h2 class="mt-4">
+        <%= house.apartmentInfo.apartmentName %>
+      </h2>
+      <p><strong>Owner:</strong>
+        <%= house.partnerName %>
+          <%= house.partnerLastName %>
+      </p>
+      <p><strong>Phone Number:</strong>
+        <%= house.phoneNumber %>
+      </p>
+      <p><strong>Location:</strong>
+        <%= house.city %>, <%= house.neighborhood %>
+      </p>
+      <p><strong>Type:</strong>
+        <%= house.type %> - <%= house.nightmonth==='night' ? 'Per Night' : 'Per Month' %>
+      </p>
+      <p><strong>Furniture:</strong>
+        <%= house.furniture==='true' ? 'Furnished' : 'Unfurnished' %>
+      </p>
+      <p><strong>Price:</strong> $<%= house.apartmentInfo.price %>
+      </p>
+      <a href="<%= house.apartmentInfo.position %>" target="_blank" class="btn btn-primary btn-sm mt-2">View on
+        Map</a>
 
-    <!-- Features List -->
-    <h3 class="mt-4">Features</h3>
-    <div class="features-section row">
-      <% for (let category in house.features) { %>
-        <div class="col-md-4 feature-category">
-          <h4><i class="bi bi-house"></i>
-            <%= category %>
-          </h4>
-          <ul class="feature-list">
-            <% house.features[category].forEach(feature=> { %>
-              <li><i class="bi bi-check-circle"></i>
-                <%= feature %>
-              </li>
-              <% }) %>
-          </ul>
-        </div>
-        <% } %>
-    </div>
+      <!-- Features List -->
+      <h3 class="mt-4">Features</h3>
+      <div class="features-section row">
+        <% for (let category in house.features) { %>
+          <div class="col-md-4 feature-category">
+            <h4><i class="bi bi-house"></i>
+              <%= category %>
+            </h4>
+            <ul class="feature-list">
+              <% house.features[category].forEach(feature=> { %>
+                <li><i class="bi bi-check-circle"></i>
+                  <%= feature %>
+                </li>
+                <% }) %>
+            </ul>
+          </div>
+          <% } %>
+      </div>
 
-    <!-- Rooms Details -->
-    <h3 class="mt-4">Rooms</h3>
-    <div class="row">
-      <% house.rooms.forEach(room=> { %>
-        <div class="col-md-6 mb-3">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">
-                <%= room.typee %>
-              </h5>
-              <p class="card-text">
-                <%= room.description %>
-              </p>
+      <!-- Rooms Details -->
+      <h3 class="mt-4">Rooms</h3>
+      <div class="row">
+        <% house.rooms.forEach(room=> { %>
+          <div class="col-md-6 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= room.typee %>
+                </h5>
+                <p class="card-text">
+                  <%= room.description %>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        <% }) %>
-    </div>
+          <% }) %>
+      </div>
 
-    <!-- Nearby Environment -->
-    <h3 class="mt-4">Nearby Places</h3>
-    <div class="features-section row">
-      <% for (let category in house.environment) { %>
-        <div class="col-md-4 feature-category">
-          <h4><i class="bi bi-geo-alt"></i>
-            <%= category %>
-          </h4>
-          <ul class="feature-list">
-            <% house.environment[category].forEach(place=> { %>
-              <li><i class="bi bi-check-circle"></i>
-                <%= place.title %> - <%= place.distance %> km
-              </li>
-              <% }) %>
-          </ul>
-        </div>
-        <% } %>
-    </div>
+      <!-- Nearby Environment -->
+      <h3 class="mt-4">Nearby Places</h3>
+      <div class="features-section row">
+        <% for (let category in house.environment) { %>
+          <div class="col-md-4 feature-category">
+            <h4><i class="bi bi-geo-alt"></i>
+              <%= category %>
+            </h4>
+            <ul class="feature-list">
+              <% house.environment[category].forEach(place=> { %>
+                <li><i class="bi bi-check-circle"></i>
+                  <%= place.title %> - <%= place.distance %> km
+                </li>
+                <% }) %>
+            </ul>
+          </div>
+          <% } %>
+      </div>
 
 
-    <script src="../js/bootstrap.bundle.min.js"></script>
+      <script src="../js/bootstrap.bundle.min.js"></script>
 
 </body>
 

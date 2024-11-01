@@ -9,12 +9,12 @@ html {
 
  
 
-.dropdown-toggle { 
+/* .dropdown-toggle { 
   outline: 0;
   position: fixed !important;
   top: 10px;
   right: 300px;
-}
+} */
 
 .btn-toggle {
   padding: .25rem .5rem;
@@ -64,9 +64,6 @@ html {
 /* nav bar */
 
 .profile{
-  position: fixed;
-  top: 10px;
-  right: 60px;
   padding: 4.2px;
   borer-radius: 10px;
   border-radius: 6px;
