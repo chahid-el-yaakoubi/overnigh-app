@@ -51,7 +51,37 @@
                 </div>
 
                 <h3 class="mt-4">Apartment Information</h3>
+                <div class="row">
+                  <div class="col-md-3">
+                    <!-- Region Dropdown -->
+                    <select class="form-select" id="region" name="region" onchange="updateCities()">
+                      <option selected disabled>Région</option>
+                      <% Object.keys(locations).forEach(function(region) { %>
+                        <option value="<%= region %>"><%= region %></option>
+                      <% }); %>
+                    </select>
+                  </div>
+                  
+                  <div class="col-md-3">
+                    <!-- City Dropdown -->
+                    <select class="form-select" id="city" name="city">
+                      <option selected disabled>Ville</option>
+                    </select>
+                  </div>
+                  
+                  <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="Entrez la quartier" name="neighborhood" id="neighborhood">
+                  </div>
 
+                  <div class="mb-3 col-md-3">
+                    <select class="form-select" id="type" name="type">
+                      <option selected disabled>villa/appartement</option>
+                      <option value="villa">Villa</option>
+                      <option value="appartement">Appartement</option>
+                      <option value="house">Maison</option>
+                    </select>
+                  </div>
+                </div>
                 <div class="row">
                   <div class="col-md-4">
                     <select class="form-select" id="nightmonth" name="nightmonth">
