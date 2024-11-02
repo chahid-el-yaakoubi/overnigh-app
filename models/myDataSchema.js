@@ -21,7 +21,5 @@ const custemerSchema = new schema({
 
 const MydataCustemer = mongoose.model('Custemer', custemerSchema)
 
-// export the model
-
 module.exports = MydataCustemer;
 

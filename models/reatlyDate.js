@@ -4,6 +4,7 @@ const realtySchema = new mongoose.Schema({
     partnerName: String,
     partnerLastName: String,
     phoneNumber: { type: String, match: /^[0-9]{10}$/ },
+    region: String,
     city: String,
     neighborhood: String,
     type: String,

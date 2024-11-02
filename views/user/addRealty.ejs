@@ -16,20 +16,7 @@
     <link rel="stylesheet" href="../css/myStyle.css" />
     <link rel="stylesheet" href="../css/dark-light.css" />
 </head>
-<style>
-    * {
-        padding: 0;
-        margin: 0;
-    }
 
-    #houseContainer {
-        max-height: 88vh;
-        overflow-y: hidden;
-        overflow-y: scroll;
-        /* background-color: rgb(0, 0, 0); */
-        scrollbar-width: none;
-    }
-</style>
 
 <body>
     <%- include('../Component/dark-light.ejs') %>
@@ -41,52 +28,60 @@
                     <%- include('../Component/navbar.ejs') %>
 
                         <div class="container mt-5 " id="houseContainer">
-                            <h1 class="text-center mb-4">Add Realty Information</h1>
+                            <h1 class="text-center mb-5 pb-5">Ajouter des informations sur les biens immobiliers</h1>
 
                             <form action="/addrealty.html" method="POST">
-                                <h3 class="mt-4">Partner Information</h3>
+                                <h3 >Informations sur les partenaires</h3>
                                 <div class="row">
                                     <div class="mb-3 col-md-4">
                                         <label for="partnerName" class="form-label">Nom:</label>
                                         <input type="text" class="form-control" id="partnerName" name="partnerName"
-                                            placeholder="Enter partner's name" />
+                                            placeholder="Entrez le nom du partenaire" />
                                     </div>
                                     <div class="mb-3 col-md-4">
                                         <label for="partnerLastName" class="form-label">Prénom:</label>
                                         <input type="text" class="form-control" id="partnerLastName"
-                                            name="partnerLastName" placeholder="Enter partner's name" />
+                                            name="partnerLastName" placeholder="Entrez le prenom du partenaire" />
                                     </div>
                                     <div class="col-md-4">
                                         <label for="phoneNumber" class="form-label">Phone Number</label>
                                         <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
-                                            placeholder="Enter phone number" pattern="[0-9]{10}" />
+                                            placeholder="0648125565" pattern="[0-9]{10}" />
                                     </div>
                                 </div>
 
-                                <h3 class="mt-4">Apartment Information</h3>
+                                <h3 >Informations sur l'appartement</h3>
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <select class="form-select" id="city" name="city">
-                                            <option selected disabled>Ville</option>
-                                            <option value="nador">Nador</option>
-                                        </select>
+                                    <div class="col-md-3">
+                                      <!-- Region Dropdown -->
+                                      <select class="form-select" id="region" name="region" onchange="updateCities()">
+                                        <option selected disabled>Région</option>
+                                        <% Object.keys(locations).forEach(function(region) { %>
+                                          <option value="<%= region %>"><%= region %></option>
+                                        <% }); %>
+                                      </select>
                                     </div>
-                                    <div class="col-md-4">
-                                        <select class="form-select" id="neighborhood" name="neighborhood">
-                                            <option selected disabled>Quartier</option>
-                                            <option value="hayalmatar">Hay-Al-Matar</option>
-                                        </select>
+                                    
+                                    <div class="col-md-3">
+                                      <!-- City Dropdown -->
+                                      <select class="form-select" id="city" name="city">
+                                        <option selected disabled>Ville</option>
+                                      </select>
                                     </div>
-
-                                    <div class="mb-3 col-md-4">
-                                        <select class="form-select" id="type" name="type">
-                                            <option selected disabled>villa/appartement</option>
-                                            <option value="villa">Villa</option>
-                                            <option value="appartement">Appartement</option>
-                                            <option value="maison">maison</option>
-                                        </select>
+                                    
+                                    <div class="col-md-3">
+                                      <input type="text" class="form-control" placeholder="Entrez la quartier" name="neighborhood" id="neighborhood">
                                     </div>
-                                </div>
+                  
+                                    <div class="mb-3 col-md-3">
+                                      <select class="form-select" id="type" name="type">
+                                        <option selected disabled>villa/appartement</option>
+                                        <option value="villa">Villa</option>
+                                        <option value="appartement">Appartement</option>
+                                        <option value="house">Maison</option>
+                                      </select>
+                                    </div>
+                                  </div>
 
                                 <div class="row">
                                     <div class="col-md-4">
@@ -187,7 +182,7 @@
 
                                 </div>
 
-                                <h3 class="mt-4">Chambres</h3>
+                                <h3 >Chambres</h3>
                                 <div class="mb-3">
                                     <div id="roomContainer">
 
@@ -209,11 +204,12 @@
 
                                     </div>
                                 </div>
+                                <h3 >Caractéristiques de la maison</h3>
 
                                 <% categories.forEach(category=> { %>
-                                    <h4>
+                                    <h5>
                                         <%= category.section %>
-                                    </h4>
+                                    </h5>
                                     <div class="row">
                                         <% category.items.forEach(item=> { %>
                                             <div class="col-md-6 mb-3">
@@ -240,11 +236,13 @@
 
 
                                         <!-- add description house -->
+                                <h3 >Descriptions de la maison</h3>
+
                                         <div id="descriptionsContainer">
                                             <div class="form-group">
                                                 <label for="description">Description:</label>
                                                 <textarea class="form-control" name="descriptions[]" rows="2"
-                                                    required></textarea>
+                                                    ></textarea>
 
                                             </div>
                                         </div>
@@ -274,6 +272,37 @@
         <script src="../js/bootstrap.bundle.min.js"></script>
         <script src="../js/sidebars.js"></script>
         <script src="../js/main.js"></script>
+        <script>
+            // JavaScript Object with Regions and Cities (from your JSON data)
+            const locations = <%- JSON.stringify(locations) %>;
+          
+            // Function to update cities based on selected region
+            function updateCities() {
+              const regionSelect = document.getElementById('region');
+              const citySelect = document.getElementById('city');
+              const selectedRegion = regionSelect.value;
+          
+              // Clear previous options
+              citySelect.innerHTML = '<option selected disabled>Ville</option>';
+          
+              // Get cities of the selected region
+              const cities = locations[selectedRegion];
+          
+              // Sort cities A-Z
+              if (cities) {
+                cities.sort(); // Sort the cities array alphabetically
+          
+                // Populate cities dropdown
+                cities.forEach(city => {
+                  const option = document.createElement('option');
+                  option.value = city;
+                  option.textContent = city;
+                  citySelect.appendChild(option);
+                });
+              }
+            }
+          </script>
+          
         <script>
             function toggleDescriptionField(item) {
                 const checkbox = document.getElementById(item);

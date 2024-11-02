@@ -5,6 +5,7 @@ const houseSchema = new mongoose.Schema({
   partnerName: String,
   partnerLastName: String,
   phoneNumber: String,
+  region: String,
   city: String,
   neighborhood: String,
   type: String,
@@ -32,7 +33,7 @@ const houseSchema = new mongoose.Schema({
   images: [String], 
   descriptions: [String],
   condition: {  
-    arrival: { type: String },
+    arrival: [{ type: String }],
     departure: { type: String },
     smoker: { type: String },
     animal: { type: String },

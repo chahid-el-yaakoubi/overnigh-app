@@ -16,19 +16,7 @@
   <link rel="stylesheet" href="../css/myStyle.css" />
   <link rel="stylesheet" href="../css/dark-light.css" />
 </head>
-<style>
-  * {
-    padding: 0;
-    margin: 0;
-  }
 
-  #houseContainer {
-    max-height: 88vh;
-    overflow-y: hidden;
-    overflow-y: scroll;
-    scrollbar-width: none;
-  }
-</style>
 
 <body>
   <%- include('../Component/dark-light.ejs') %>
@@ -66,21 +54,33 @@
                 </div>
                 <h3 class="mt-4">Apartment Information</h3>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-3">
+                    <!-- Region Dropdown -->
+                    <select class="form-select" id="region" name="region" onchange="updateCities()">
+                      <option selected disabled>Région</option>
+                      <% Object.keys(locations).forEach(function(region) { %>
+                        <option value="<%= region %>" <%= region === house.region ? 'selected' : '' %>><%= region %></option>
+                      <% }); %>
+                    </select>
+                  </div>
+                
+                  <div class="col-md-3">
+                    <!-- City Dropdown -->
                     <select class="form-select" id="city" name="city">
                       <option selected disabled>Ville</option>
-                      <option value="nador" <%=house && house.city==='nador' ? 'selected' : '' %>>Nador</option>
+                      <% if (house.region && locations[house.region]) { %> <!-- Ensure region is valid -->
+                        <% locations[house.region].sort().forEach(function(city) { %>
+                          <option value="<%= city %>" <%= city === house.city ? 'selected' : '' %>><%= city %></option>
+                        <% }); %>
+                      <% } %>
                     </select>
                   </div>
-                  <div class="col-md-4">
-                    <select class="form-select" id="neighborhood" name="neighborhood">
-                      <option selected disabled>Quartier</option>
-                      <option value="hayalmatar" <%=house && house.neighborhood==='hayalmatar' ? 'selected' : '' %>
-                        >Hay-Al-Matar</option>
-                    </select>
+                
+                  <div class="col-md-3">
+                    <input type="text" class="form-control" name="neighborhood" id="neighborhood" placeholder="Neighborhood" value="<%= house.neighborhood %>">
                   </div>
 
-                  <div class="mb-3 col-md-4">
+                  <div class="mb-3 col-md-3">
                     <select class="form-select" id="type" name="type">
                       <option selected disabled>villa/appartement</option>
                       <option value="villa" <%=house && house.type==='villa' ? 'selected' : '' %>>Villa</option>
@@ -159,7 +159,7 @@
                           </h4>
                           <div class="mb-3">
                             <label for="type" class="form-label">Room Type</label>
-                            <select class="form-select" name="typee[]" required>
+                            <select class="form-select" name="typee[]" >
                               <option value="Single" <%=room.typee==='Single' ? 'selected' : '' %>>Single</option>
                               <option value="Double" <%=room.typee==='Double' ? 'selected' : '' %>>Double</option>
                               <option value="Suite" <%=room.typee==='Suite' ? 'selected' : '' %>>Suite</option>
@@ -178,7 +178,7 @@
                               <h4>Room #1</h4>
                               <div class="mb-3">
                                 <label for="type" class="form-label">Room Type</label>
-                                <select class="form-select" name="typee[]" required>
+                                <select class="form-select" name="typee[]">
                                   <option value="Single">Single</option>
                                   <option value="Double">Double</option>
                                   <option value="Suite">Suite</option>
@@ -199,9 +199,9 @@
 
                   <h3 class="mt-4">House Features</h3>
                   <% categories.forEach(category=> { %>
-                    <h4>
+                    <h5>
                       <%= category.section %>
-                    </h4>
+                    </h5>
                     <div class="row">
                       <% category.items.forEach(item=> { %>
                         <div class="col-md-6 mb-3">
@@ -352,7 +352,7 @@
                             </div>
                           </div>
 
-                        <h3 class="mt-4">Update Desc</h3>
+                          <h3 class="mt-4">Update Desc</h3>
                           <div id="descriptionsContainer"></div>
                           <% house.descriptions.forEach(function(description, index) { %>
                             <div class="form-group description-group">
@@ -400,6 +400,36 @@
         toggleInput();
         toggleBebeBedsInput();
       });
+    </script>
+    <script>
+      // JavaScript Object with Regions and Cities (from your JSON data)
+      const locations = <%- JSON.stringify(locations) %>;
+    
+      // Function to update cities based on selected region
+      function updateCities() {
+        const regionSelect = document.getElementById('region');
+        const citySelect = document.getElementById('city');
+        const selectedRegion = regionSelect.value;
+    
+        // Clear previous options
+        citySelect.innerHTML = '<option selected disabled>Ville</option>';
+    
+        // Get cities of the selected region
+        const cities = locations[selectedRegion];
+    
+        // Sort cities A-Z
+        if (cities) {
+          cities.sort(); // Sort the cities array alphabetically
+    
+          // Populate cities dropdown
+          cities.forEach(city => {
+            const option = document.createElement('option');
+            option.value = city;
+            option.textContent = city;
+            citySelect.appendChild(option);
+          });
+        }
+      }
     </script>
 </body>
 

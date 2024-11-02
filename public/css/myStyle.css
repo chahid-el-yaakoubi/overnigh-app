@@ -79,5 +79,36 @@ table th{
  
   color: #fff;
 }
+/* house and realties */
+#houseContainer {
+  max-height: 88vh;
+  overflow-y: hidden;
+  overflow-y: scroll;
+  /* background-color: rgb(0, 0, 0); */
+  scrollbar-width: none;
+}
 
+h3 {
+  color: rgb(226, 117, 14);
+  text-decoration: overline;
+  margin:  2.4rem 0 1rem 0 ;
+}
 
+label {
+  font-weight: 600;
+  cursor: pointer;
+  font-style: italic;
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+h5 {
+  color: rgb(213, 216, 26);
+}
+
+input::placeholder,
+textarea::placeholder {
+  font-size: 12px;
+  
+}

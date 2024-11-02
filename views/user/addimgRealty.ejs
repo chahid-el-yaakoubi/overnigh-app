@@ -23,61 +23,66 @@
 
   <%- include('../Component/dark-light.ejs') %>
 
-  <main class="d-flex flex-nowrap">
-    <%- include('../Component/sidebar.ejs', { currentPage: 'addhouseimg' }) %>
-    <section class="w-100">
+    <main class="d-flex flex-nowrap">
+      <%- include('../Component/sidebar.ejs', { currentPage: 'addhouseimg' }) %>
+        <section class="w-100">
 
-      <%- include('../Component/navbar.ejs') %>
-      <p><a href="/">Home</a> ><a href="/dataRealty">Houses-realty</a> ><a href="/realty/<%= house._id %>-eimgs">img-House</a></p>
-      <div class="container">
-        <h1>Upload Images realty</h1>
-        <form action="/update-imagerealty" method="POST" enctype="multipart/form-data">
-          <!-- Hidden field for house ID -->
-          <% if (house) { %>
-          <input type="hidden" name="houseId" value="<%= house._id %>">
-          <% } %>
-
-          <!-- Fixed input fields for image uploads -->
-          <input class="form-control mb-2" type="file" name="images" accept="image/*" multiple required>
-
-          <button class="btn btn-primary w-100" type="submit">Save All Images</button>
-        </form>
-
-        <!-- Display existing images -->
-        <% if (house && house.images && house.images.length > 0) { %>
-          <h4>Existing Images:</h4>
-          <div class="row">
-            <% house.images.forEach((image, index) => { %>
-            <div class="col-md-3 mb-3 p-3">
-              <div class="bordered border">
-                <img style="min-height: 250px; max-height: 250px; width: 100%;" src="../../<%= image %>" alt="Image <%= index + 1 %>" class="img-fluid mb-2" />
-                <!-- Form to remove image -->
-                <form action="/remove-imagerealty" method="POST" style="display:inline;">
+          <%- include('../Component/navbar.ejs') %>
+            <p><a href="/">Home</a> ><a href="/dataRealty">Houses-realty</a> ><a
+                href="/realty/<%= house._id %>-eimgs">img-House</a></p>
+            <div class="container">
+              <h1>Upload Images realty</h1>
+              <form action="/update-imagerealty" method="POST" enctype="multipart/form-data">
+                <!-- Hidden field for house ID -->
+                <% if (house) { %>
                   <input type="hidden" name="houseId" value="<%= house._id %>">
-                  <input type="hidden" name="imagePath" value="<%= image %>">
-                  <button type="submit" class="btn btn-danger btn-sm mb-1"><i class="bi bi-trash"></i></button>
-                </form>
+                  <% } %>
 
-                <!-- Form to update image -->
-                <!-- <form action="/update-imagerealty" class="d-flex" method="POST" enctype="multipart/form-data" style="display:inline;">
-                  <input type="hidden" name="houseId" value="<%- house._id %>">
-                  <input type="hidden" name="oldImagePath" value="<%- image %>">
-                  <input style="max-width: 100px;" class="form-control-file" type="file" name="newImage" accept="image/*" required>
-                  <button type="submit" class="btn btn-warning btn-sm">Update</button>
-                </form> -->
-              </div>
+                    <!-- Fixed input fields for image uploads -->
+                    <input class="form-control mb-2" type="file" name="images" accept="image/*" multiple required>
+
+                    <button class="btn btn-primary w-100" type="submit">Save All Images</button>
+              </form>
+
+              <!-- Display existing images -->
+              <% if (house && house.images && house.images.length> 0) { %>
+                <h4>Existing Images:</h4>
+                <div class="row" style="max-height: 68vh; overflow-y: scroll; scrollbar-width: none;">
+                  <% house.images.forEach((image, index)=> { %>
+                    <div class="col-md-3 mb-3 p-3">
+                      <div class="bordered border">
+                        <img style="min-height: 250px; max-height: 250px; width: 100%;" src="<%= image %>"
+                          alt="Image <%= index + 1 %>" class="img-fluid mb-2" />
+                        <!-- Form to remove image -->
+                        <form action="/remove-imagerealty" method="POST" style="display:inline;">
+                          <input type="hidden" name="houseId" value="<%= house._id %>">
+                          <input type="hidden" name="imagePath" value="<%= image %>">
+                          <button type="submit" class="btn btn-danger btn-sm mb-1"><i class="bi bi-trash"></i></button>
+                        </form>
+
+                        <!-- <form action="/update-imagerealty" class="d-flex align-items-center" method="POST"
+                          enctype="multipart/form-data" style="display:inline;">
+                          <input type="hidden" name="houseId" value="<%- house._id %>">
+                          <input type="hidden" name="oldImagePath" value="<%- image %>">
+                          <input style="max-width: 150px;" class="form-control-file" type="file" name="newImage"
+                            id="newImage" accept="image/*" required>
+                          <button type="submit" class="btn btn-warning btn-sm ml-2">Update</button>
+                        </form> -->
+
+
+                      </div>
+                    </div>
+                    <% }) %>
+                </div>
+                <br>
+                <% } %>
             </div>
-            <% }) %>
-          </div>
-          <br>
-        <% } %>
-      </div>
 
-    </section>
-  </main>
-  <script src="../js/bootstrap.bundle.min.js"></script>
-  <script src="../js/sidebars.js"></script>
-  <script src="../js/main.js"></script>
+        </section>
+    </main>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/sidebars.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 
 </html>

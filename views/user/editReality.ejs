@@ -16,20 +16,7 @@
     <link rel="stylesheet" href="../css/myStyle.css" />
     <link rel="stylesheet" href="../css/dark-light.css" />
 </head>
-<style>
-    * {
-        padding: 0;
-        margin: 0;
-    }
 
-    #houseContainer {
-        max-height: 88vh;
-        overflow-y: hidden;
-        overflow-y: scroll;
-        /* background-color: rgb(0, 0, 0); */
-        scrollbar-width: none;
-    }
-</style>
 
 <body>
     <%- include('../Component/dark-light.ejs') %>
@@ -41,10 +28,10 @@
                     <%- include('../Component/navbar.ejs') %>
 
                         <div class="container mt-5 " id="houseContainer">
-                            <h1 class="text-center mb-4">Add Realty Information</h1>
+                            <h1 class="text-center mb-5 pb-5">Informations sur les réalités modifiées</h1>
 
                             <form action="/addrealty.html" method="POST">
-                                <h3 class="mt-4">Partner Information</h3>
+                                <h3 class="mt-4">Informations sur les partenaires</h3>
                                 <div class="row">
                                     <input type="hidden" name="realtyId" value="<%= realty? realty._id : '' %>">
                                     <div class="mb-3 col-md-4">
@@ -60,39 +47,56 @@
                                             value="<%=  realty && realty.partnerLastName? realty.partnerLastName : '' %>" />
                                     </div>
                                     <div class="col-md-4">
-                                        <label for="phoneNumber" class="form-label">Phone Number</label>
+                                        <label for="phoneNumber" class="form-label">Numéro de téléphone</label>
                                         <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
                                             placeholder="Enter phone number" pattern="[0-9]{10}"
                                             value="<%=  realty && realty.phoneNumber? realty.phoneNumber : '' %>" />
                                     </div>
                                 </div>
 
-                                <h3 class="mt-4">Apartment Information</h3>
+                                <h3 class="mt-4">Informations sur l'appartement</h3>
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <select class="form-select" id="city" name="city">
-                                            <option selected disabled>Ville</option>
-                                            <option value="nador" <%=realty && realty.city==="nador" ? 'selected' : ''
-                                                %>>Nador</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <select class="form-select" id="neighborhood" name="neighborhood">
-                                            <option selected disabled>Quartier</option>
-                                            <option value="hayalmatar" <%=realty && realty.neighborhood==="nador"
-                                                ? 'selected' : '' %>>Hay-Al-Matar</option>
+                                    <div class="col-md-3">
+                                        <!-- Region Dropdown -->
+                                        <select class="form-select" id="region" name="region" onchange="updateCities()">
+                                            <option selected disabled>Région</option>
+                                            <% Object.keys(locations).forEach(function(region) { %>
+                                                <option value="<%= region %>" <%=region===realty.region ? 'selected'
+                                                    : '' %>><%= region %>
+                                                </option>
+                                                <% }); %>
                                         </select>
                                     </div>
 
-                                    <div class="mb-3 col-md-4">
+                                    <div class="col-md-3">
+                                        <!-- City Dropdown -->
+                                        <select class="form-select" id="city" name="city">
+                                            <option selected disabled>Ville</option>
+                                            <% if (realty.region && locations[realty.region]) { %>
+                                                <!-- Ensure region is valid -->
+                                                <% locations[realty.region].sort().forEach(function(city) { %>
+                                                    <option value="<%= city %>" <%=city===realty.city ? 'selected' : ''
+                                                        %>><%= city %>
+                                                    </option>
+                                                    <% }); %>
+                                                        <% } %>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" name="neighborhood" id="neighborhood"
+                                            placeholder="Neighborhood" value="<%= realty.neighborhood %>">
+                                    </div>
+
+                                    <div class="mb-3 col-md-3">
                                         <select class="form-select" id="type" name="type">
                                             <option selected disabled>villa/appartement</option>
-                                            <option value="villa" <%=realty && realty.type==="villa" ? 'selected' : ''
+                                            <option value="villa" <%=realty && realty.type==='villa' ? 'selected' : ''
                                                 %>>Villa</option>
-                                            <option value="appartement" <%=realty && realty.type==="appartement"
+                                            <option value="appartement" <%=realty && realty.type==='appartement'
                                                 ? 'selected' : '' %>>Appartement</option>
-                                            <option value="maison" <%=realty && realty.type==="maison" ? 'selected' : ''
-                                                %>>maison</option>
+                                            <option value="house" <%=realty && realty.type==='house' ? 'selected' : ''
+                                                %>>Maison</option>
                                         </select>
                                     </div>
                                 </div>
@@ -233,7 +237,7 @@
 
                                     </div>
                                 </div>
-                                <h3 class="mt-4">House Features</h3>
+                                <h3 class="mt-4">Caractéristiques de la maison</h3>
                                 <% categories.forEach(category=> { %>
                                     <h4>
                                         <%= category.section %>
@@ -270,6 +274,7 @@
 
 
 
+                                        <h3 class="mt-4">Descriptions de la maison</h3>
 
                                         <div id="descriptionsContainer">
                                             <% realty.descriptions.forEach(function(description, index) { %>
@@ -304,56 +309,86 @@
         <script src="../js/sidebars.js"></script>
         <script src="../js/main.js"></script>
         <script>
-    // Descriptions houses
-    document.getElementById('addDescriptionBtn').addEventListener('click', function () {
-        const descriptionsContainer = document.getElementById('descriptionsContainer');
+            // Descriptions houses
+            document.getElementById('addDescriptionBtn').addEventListener('click', function () {
+                const descriptionsContainer = document.getElementById('descriptionsContainer');
 
-        // Create a new description div
-        const newDescriptionDiv = document.createElement('div');
-        newDescriptionDiv.className = 'form-group description-group';
+                // Create a new description div
+                const newDescriptionDiv = document.createElement('div');
+                newDescriptionDiv.className = 'form-group description-group';
 
-        // Create a new textarea
-        const newDescriptionTextarea = document.createElement('textarea');
-        newDescriptionTextarea.className = 'form-control my-2';
-        newDescriptionTextarea.name = 'descriptions[]';
-        newDescriptionTextarea.rows = 2;
-        newDescriptionTextarea.placeholder = 'Add another description';
-        newDescriptionDiv.appendChild(newDescriptionTextarea);
+                // Create a new textarea
+                const newDescriptionTextarea = document.createElement('textarea');
+                newDescriptionTextarea.className = 'form-control my-2';
+                newDescriptionTextarea.name = 'descriptions[]';
+                newDescriptionTextarea.rows = 2;
+                newDescriptionTextarea.placeholder = 'Add another description';
+                newDescriptionDiv.appendChild(newDescriptionTextarea);
 
-        // Create a remove button for the textarea
-        const removeButton = document.createElement('button');
-        removeButton.type = 'button';
-        removeButton.className = 'btn btn-danger mt-2 removeDescriptionBtn';
-        removeButton.innerText = 'Remove';
-        newDescriptionDiv.appendChild(removeButton);
+                // Create a remove button for the textarea
+                const removeButton = document.createElement('button');
+                removeButton.type = 'button';
+                removeButton.className = 'btn btn-danger mt-2 removeDescriptionBtn';
+                removeButton.innerText = 'Remove';
+                newDescriptionDiv.appendChild(removeButton);
 
-        descriptionsContainer.appendChild(newDescriptionDiv);
+                descriptionsContainer.appendChild(newDescriptionDiv);
 
-        // Add event listener for remove button
-        removeButton.addEventListener('click', function () {
-            descriptionsContainer.removeChild(newDescriptionDiv);
+                // Add event listener for remove button
+                removeButton.addEventListener('click', function () {
+                    descriptionsContainer.removeChild(newDescriptionDiv);
+                    toggleRemoveButtons();
+                });
+
+                toggleRemoveButtons();
+            });
+
+            function toggleRemoveButtons() {
+                const descriptionGroups = document.querySelectorAll('.description-group');
+                const removeButtons = document.querySelectorAll('.removeDescriptionBtn');
+
+                // Show remove buttons if more than one description exists
+                if (descriptionGroups.length > 1) {
+                    removeButtons.forEach(button => button.style.display = 'inline-block');
+                } else {
+                    removeButtons.forEach(button => button.style.display = 'none');
+                }
+            }
+
+            // Initialize visibility of remove buttons on load
             toggleRemoveButtons();
-        });
+        </script>
+        <script>
+            // JavaScript Object with Regions and Cities (from your JSON data)
+            const locations = <% - JSON.stringify(locations) %>;
 
-        toggleRemoveButtons();
-    });
+            // Function to update cities based on selected region
+            function updateCities() {
+                const regionSelect = document.getElementById('region');
+                const citySelect = document.getElementById('city');
+                const selectedRegion = regionSelect.value;
 
-    function toggleRemoveButtons() {
-        const descriptionGroups = document.querySelectorAll('.description-group');
-        const removeButtons = document.querySelectorAll('.removeDescriptionBtn');
-        
-        // Show remove buttons if more than one description exists
-        if (descriptionGroups.length > 1) {
-            removeButtons.forEach(button => button.style.display = 'inline-block');
-        } else {
-            removeButtons.forEach(button => button.style.display = 'none');
-        }
-    }
+                // Clear previous options
+                citySelect.innerHTML = '<option selected disabled>Ville</option>';
 
-    // Initialize visibility of remove buttons on load
-    toggleRemoveButtons();
-</script>
- 
+                // Get cities of the selected region
+                const cities = locations[selectedRegion];
+
+                // Sort cities A-Z
+                if (cities) {
+                    cities.sort(); // Sort the cities array alphabetically
+
+                    // Populate cities dropdown
+                    cities.forEach(city => {
+                        const option = document.createElement('option');
+                        option.value = city;
+                        option.textContent = city;
+                        citySelect.appendChild(option);
+                    });
+                }
+            }
+        </script>
+
 
 </body>
 

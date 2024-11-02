@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+<head>
+  <script src="../js/color-modes.js"></script>
+  <link rel="stylesheet" href="../bootstrap-icons-1.10.5/font/bootstrap-icons.min.css" />
+  <link rel="shortcut icon" href="../img/ali.png" type="image/x-icon">
+  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
+  <title>Manage Cities and Neighborhoods</title>
+
+  <link href="../css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../css/sidebars.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/myStyle.css" />
+  <link rel="stylesheet" href="../css/dark-light.css">
+</head>
+
+<body>
+  <%- include('../Component/dark-light.ejs') %>
+
+  <main class="d-flex flex-nowrap">
+    <%- include('../Component/sidebar.ejs', { currentPage: 'addhouseimg' }) %>
+    <section class="w-100">
+      <%- include('../Component/navbar.ejs') %>
+      
+      <section id="addLocationSection" class="p-4">
+        <h2>Add New City</h2>
+        <form id="addCityForm" class="mb-4">
+          <div class="form-group mb-3">
+            <label for="cityName">City Name</label>
+            <input type="text" id="cityName" name="city" class="form-control" required />
+          </div>
+          <div class="form-group mb-3">
+            <label for="neighborhoods">Neighborhoods (comma-separated)</label>
+            <input type="text" id="neighborhoods" name="neighborhoods" class="form-control" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Add City</button>
+        </form>
+      </section>
+
+      <section id="locationSection" class="p-4">
+        <h2>Cities and Neighborhoods</h2>
+        <div id="locations" class="list-group">
+            <pre id="jsonView" class="p-3 bg-light rounded">
+                { "cities": [
+                  <% cities.forEach((location, index) => { %>
+                    {
+                      "city": "<%= location.city %>",
+                      "neighborhoods": [
+                        <% location.neighborhoods.forEach((neighborhood, idx) => { %>
+                          "<%= neighborhood %>"<%= idx < location.neighborhoods.length - 1 ? ',' : '' %>
+                        <% }); %>
+                      ]
+                    }<%= index < cities.length - 1 ? ',' : '' %>
+                  <% }); %>
+                ]}
+              </pre>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="../js/bootstrap.bundle.min.js"></script>
+  <script src="../js/sidebars.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    // Fetch and display locations
+    async function fetchLocations() {
+      try {
+        const response = await fetch('/locations');
+        const locations = await response.json();
+        const locationsContainer = document.getElementById('locations');
+        locationsContainer.innerHTML = '';
+
+        locations.forEach(location => {
+          const cityDiv = document.createElement('div');
+          cityDiv.className = 'list-group-item';
+
+          const cityName = document.createElement('h3');
+          cityName.innerText = location.city;
+          cityDiv.appendChild(cityName);
+
+          const neighborhoodsList = document.createElement('ul');
+          location.neighborhoods.forEach(neighborhood => {
+            const listItem = document.createElement('li');
+            listItem.innerText = neighborhood;
+            neighborhoodsList.appendChild(listItem);
+          });
+          cityDiv.appendChild(neighborhoodsList);
+
+          // Update and Delete Buttons
+          const updateButton = document.createElement('button');
+          updateButton.className = 'btn btn-warning me-2';
+          updateButton.innerText = 'Update';
+          updateButton.onclick = () => updateCity(location._id);
+
+          const deleteButton = document.createElement('button');
+          deleteButton.className = 'btn btn-danger';
+          deleteButton.innerText = 'Delete';
+          deleteButton.onclick = () => deleteCity(location._id);
+
+          cityDiv.appendChild(updateButton);
+          cityDiv.appendChild(deleteButton);
+
+          locationsContainer.appendChild(cityDiv);
+        });
+      } catch (error) {
+        console.error('Error fetching locations:', error);
+      }
+    }
+
+    // Handle Add City Form Submission
+    document.getElementById('addCityForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
+      
+      const city = document.getElementById('cityName').value;
+      const neighborhoods = document.getElementById('neighborhoods').value.split(',').map(item => item.trim());
+
+      try {
+        const response = await fetch('/addcity', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ city, neighborhoods })
+        });
+        if (response.ok) {
+          alert('City added successfully!');
+          fetchLocations(); // Refresh the list
+        } else {
+          alert('Error adding city');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+
+    // Update City
+    async function updateCity(id) {
+      const city = prompt('Enter new city name');
+      const neighborhoods = prompt('Enter new neighborhoods (comma-separated)').split(',').map(item => item.trim());
+
+      try {
+        const response = await fetch(`/locations/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ city, neighborhoods })
+        });
+        if (response.ok) {
+          alert('City updated successfully');
+          fetchLocations(); // Refresh the list
+        } else {
+          alert('Error updating city');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    // Delete City
+    async function deleteCity(id) {
+      if (confirm('Are you sure you want to delete this city?')) {
+        try {
+          const response = await fetch(`/locations/${id}`, { method: 'DELETE' });
+          if (response.ok) {
+            alert('City deleted successfully');
+            fetchLocations(); // Refresh the list
+          } else {
+            alert('Error deleting city');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+    }
+
+    // Fetch locations on page load
+    window.onload = fetchLocations;
+  </script>
+</body>
+</html>
