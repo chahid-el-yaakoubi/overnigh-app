@@ -310,6 +310,7 @@ routerAddRealty.post('/addRealty.html', async (req, res) => {
             descriptions
         };
 
+        // console.log(realtyData)
         const realty = realtyId ? await Realty.findByIdAndUpdate(realtyId, realtyData, { new: true }) : await new Realty(realtyData).save();
         res.redirect('/dataRealty'); 
     } catch (error) {
